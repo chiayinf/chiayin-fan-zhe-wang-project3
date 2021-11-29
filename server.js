@@ -2,6 +2,20 @@ const express = require('express');
 const pokemon = require('./pokemon.js');
 // fix localhost 3000 and 8000
 var cors = require('cors')
+const mongoDBEndpoint = "mongodb+srv://webdeva3:z876pxp6prGCS9E@webdeva3.ykuzi.mongodb.net/WebDevA3?retryWrites=true&w=majority"
+                         
+/* One issue, however, is that you never want this kind of database connection string in your code base as if anyone found it, they could do a lot of damage.  So after testing, set the line to:
+
+   const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/collection_name';
+ */
+const mongoose = require('mongoose');
+
+//Setup MongoDB Connection
+mongoose.connect('mongodb://127.0.0.1/webdeva3', { useNewUrlParser: true })
+//Get the connection string   
+const mongoDB = mongoose.connection;
+// Create connection, and throw an error if it doesn't work
+mongoDB.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));
 
 const app = express();
 
