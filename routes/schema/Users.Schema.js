@@ -1,12 +1,20 @@
-
 const Schema = require('mongoose').Schema;
 
-exports.PokemonSchema = new Schema({
-    name: String,
-    birthday: {
-        type: Date,
-        default: Date.now,
+exports.UserSchema = new Schema({
+    username: {
+        type: String,
+        unique: true,
     },
-    health: {type: Number},
-// this explicitly declares what collection we're using
-}, { collection : 'pokemons' });
+    password: {
+        type: String,
+    },
+    favorites: {
+        type: Array,
+    },
+    jobs: {
+        type: Array,
+    }
+
+}, {
+    collection: 'users'
+})
