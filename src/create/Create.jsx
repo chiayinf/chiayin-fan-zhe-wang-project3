@@ -22,7 +22,9 @@ export default function Create() {
       return;
     }
     if (!companyNameInput) {
-      setError("You must type in a job name.");
+      setError("You must type in a  company name.");
+
+      alert("You must type in a company name.");
       return;
     }
 
