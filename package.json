@@ -1,9 +1,11 @@
 {
-  "name": "hunter_fall2021_cs5610_mod3_hello",
+  "name": "project3",
   "proxy": "http://localhost:8000",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^31.0.0",
+    "@ckeditor/ckeditor5-react": "^3.0.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -24,7 +26,7 @@
   },
   "scripts": {
     "devstart": "concurrently \"nodemon ./server.js\" \"react-scripts start\"",
-    "start": "node ./server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

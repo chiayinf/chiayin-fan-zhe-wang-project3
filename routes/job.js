@@ -14,13 +14,13 @@ router.get('/findAllJob', function(request, response) {
         .catch(error => response.status(400).send(error))
 })
 
-router.get('/:jobname', (request, response) => {
-  const jobname = request.params.jobname;
-  if(!jobname) {
+router.get('/:jobTitle', (request, response) => {
+  const jobTitle = request.params.jobTitle;
+  if(!jobTitle) {
     return response.status(422).send("Missing data");
   }
   
-  return JobModel.findJobByJobName(jobname)
+  return JobModel.findJobByJobTitle(jobTitle)
     .then((jobResponse) => {
         if(!jobResponse) {
             response.status(404).send("Job not found");
@@ -34,14 +34,13 @@ router.get('/:jobname', (request, response) => {
 
 
 router.post('/createNewJob', function(req, res) {
-    const { jobTitle, compayName,location, description, employerEmailContact, companyWebsite } = req.body;
+    console.log("passed", req.body);
+    const { jobTitle, compayTitle,location, description, employerEmailContact, companyWebsite } = req.body;
     if (!jobTitle) {
-        return res.status(422).send("Missing jobname: " + jobTitle )
+        return res.status(422).send("Missing jobTitle: " + jobTitle )
     }
 
-
-
-    return JobModel.insertJob({jobTitle, compayName,location, description, employerEmailContact, companyWebsite})
+    return JobModel.insertJob({jobTitle, compayTitle,location, description, employerEmailContact, companyWebsite})
         .then((jobResponse) => {
                 return res.status(200).send(jobResponse);
 
@@ -49,5 +48,22 @@ router.post('/createNewJob', function(req, res) {
         .catch(error => res.status(400).send(error))
 
 });
+router.delete('/:jobTitle', (request, response) => {
+    const jobTitle = request.params.jobTitle;
+    if(!jobTitle) {
+      return response.status(422).send("Missing data");
+    }
+    
+    return JobModel.findJobByJobTitle(jobTitle)
+      .then((jobResponse) => {
+          if(!jobResponse) {
+              response.status(404).send("Job not found");
+          }
+  
+          response.send(jobResponse)
+      })
+      .catch((error) => response.status(500).send("Issue getting job"))
+  })
+  
 
 module.exports = router;
