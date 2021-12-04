@@ -9,6 +9,18 @@ const mongoDBEndpoint = "mongodb+srv://webdeva3:z876pxp6prGCS9E@webdeva3.ykuzi.m
  */
 const mongoose = require('mongoose');
 
+
+
+/* const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://<username>:<password>@webdeva3.ykuzi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(mongoDBEndpoint, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+}); */
+
+
 //Setup MongoDB Connection
 mongoose.connect('mongodb://127.0.0.1/webdeva3', { useNewUrlParser: true })
 //Get the connection string   
