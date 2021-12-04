@@ -22,11 +22,12 @@ client.connect(err => {
 
 
 //Setup MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1/webdeva3', { useNewUrlParser: true })
+mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true })
 //Get the connection string   
 const mongoDB = mongoose.connection;
 // Create connection, and throw an error if it doesn't work
 mongoDB.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));
+mongoDB.on('open', ()=> console.log('connect to mongoose!'));
 
 const app = express();
 
