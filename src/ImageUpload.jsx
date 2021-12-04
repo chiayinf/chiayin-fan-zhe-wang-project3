@@ -46,7 +46,7 @@ export default function ImageUpload() {
           width: "60px",
           border: "1px dashed black"
         }}
-        onClick={() => imageUploader.current.click()}
+       
       >
         <img
           ref={uploadedImage}
@@ -56,8 +56,9 @@ export default function ImageUpload() {
             position: "acsolute"
           }}
         />
-      </div>
-      Click to upload Image
+      </div >
+      <button  onClick={() => imageUploader.current.click()}>  Click to upload Image</button>
+     
     </div>
   );
 }
