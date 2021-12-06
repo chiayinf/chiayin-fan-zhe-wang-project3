@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import JobDetail from "../JobDetail";
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 //temp for listing all jobs 
 export default function Job() {
@@ -19,10 +21,18 @@ export default function Job() {
     console.log("jobs are", allJobs);
 
     const jobListComponent = allJobs.map(job => {
-        return (<>
+
+        
+        return (
+        
+        // <JobDetail id = {job._id} name ={job.jobTitle} />
+        <>
         <p></p>
-        <Link to={"" + job._id}>{job.jobTitle}</Link>
-        </>)
+        <Link to={"detail/:" + job._id}>{job.jobTitle}</Link>
+        
+        </>
+        
+        )
     })
     return (
         <>

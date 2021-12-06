@@ -4,33 +4,48 @@ import { useParams } from 'react-router';
 
 
 export default function() {
-    const pokemonName = useParams().pokemonName;
+    const id = useParams().jobId;
+    console.log("here", id);
 
-    function findPokemonDetails() {
+    const [ajob, setAJob] = useState([]);
 
-        axios.get('http://localhost:8000/api/pokemon/find/' + pokemonName)
-            .then(response => setPokemon(response.data))
-            .then(error => console.log("Could not find that job"));
 
+    function findThatJob() {
+        axios.get('http://localhost:8000/api/jobs/detail/' + id)
+            .then(response => {
+                setAJob(response.data)
+            })
+            .catch(error => console.error(error));
     }
 
+    useEffect(findThatJob, []);
+    console.log("jobs are", ajob.jobTitle);
 
-    const [pokemon, setPokemon] = useState(null);
-    useEffect(findPokemonDetails, []);
+    // const [job, setjob] = useState(null);
+    // useEffect(findjobDetails, []);
 
 
-    const pokemonComponent = pokemon ? 
-        (<><div>
-            Pokemon Name: {pokemon.name}
-        </div>
-        <div>
-            Pokemon Health: {pokemon.health} 
-        </div></>) :
-        (<div> No Pokemon found </div>);
+    // const jobComponent = job ? 
+    //     (<><div>
+    //         job Name: {job.name}
+    //     </div>
+    //     <div>
+    //         job Health: {job.health} 
+    //     </div></>) :
+    //     (<div> No job found </div>);
 
     return (
+        <>
         <div>
-            {pokemonComponent}
+        soemthing here
+
+
+            {/* {jobComponent} */}
         </div>
+
+   <div>
+   {ajob.jobTitle}
+   </div>
+        </>
     )
 }

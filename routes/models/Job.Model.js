@@ -22,7 +22,8 @@ function findJobByJobTitle(jobTitle) {
 }
 
 function findJobByJobId(id) {
-    return JobModel.findById({id}).exec();
+    console.log("passing id is ", id);
+    return JobModel.findById(id.substring(1)).exec();
 }
 
 // function updateJobByJobId(id, job) {
@@ -34,5 +35,6 @@ module.exports = {
     insertJob,
     getAllJobs,
     findJobByJobTitle,
+     findJobByJobId,
     deleteJobById,
 };

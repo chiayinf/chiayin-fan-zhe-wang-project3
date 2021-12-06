@@ -21,7 +21,7 @@ export default function Favorite() {
     const jobListComponent = allJobs.map(job => {
         return (<>
         <p></p>
-        <Link to={"" + job._id}>{job.jobTitle}</Link>
+        <Link to={"detail/:" + job._id}>{job.jobTitle}</Link>
         </>)
     })
     return (
