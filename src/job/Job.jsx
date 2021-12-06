@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import JobDetail from "../JobDetail";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-
 //temp for listing all jobs 
 export default function Job() {
     const [allJobs, setAllJobs] = useState([]);
@@ -22,13 +21,10 @@ export default function Job() {
 
     const jobListComponent = allJobs.map(job => {
 
-        
         return (
-        
-        // <JobDetail id = {job._id} name ={job.jobTitle} />
         <>
         <p></p>
-        <Link to={"detail/:" + job._id}>{job.jobTitle}</Link>
+        <Link to={"detail/:" + job._id}>{job.jobTitle}, {job.location}, {job.companyName}</Link>
         
         </>
         

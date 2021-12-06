@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import ReactHtmlParser from 'react-html-parser'; 
+import {Navigate} from 'react-router-dom';
 
 
 export default function() {
@@ -21,8 +23,22 @@ export default function() {
     useEffect(findThatJob, []);
     console.log("jobs are", job.jobTitle);
 
-    // const [job, setjob] = useState(null);
-    // useEffect(findjobDetails, []);
+
+
+function onDeleteClick() {
+    axios
+      .delete("http://localhost:8000/api/jobs/"+id)
+      .then((response) => {
+        console.log(" delete done");
+        alert("delete succeed")
+        return <Navigate to='/job' />
+
+      })
+      .catch((error) => {
+        console.log("delete fail", error);
+        alert("delete fail")
+      });
+  }
 
 
     const jobComponent = job ? 
@@ -36,13 +52,14 @@ export default function() {
             Location: {job.location} 
         </div>
                 <div>
-            Description: {job.description} 
+            Description: 
+            <div>{ ReactHtmlParser (job.description) }</div>
         </div>
                         <div>
            Employer email contact: {job.employerEmailContact} 
         </div>
                         <div>
-            CompanyWebsite: {job.dcompanyWebsite} 
+            CompanyWebsite: {job.companyWebsite} 
         </div>
                                 <div>
             Posting date: {job.postingDate} 
@@ -67,6 +84,8 @@ export default function() {
 
           {jobComponent} 
         
+        <button >Edit</button>
+        <button onClick={onDeleteClick}>Delete</button>
         </>
     )
 }

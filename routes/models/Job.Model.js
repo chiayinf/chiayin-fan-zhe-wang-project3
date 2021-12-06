@@ -14,7 +14,8 @@ function getAllJobs() {
 
 
 function deleteJobById(id) {
-    return JobModel.findByIdAndDelete().exec();
+     console.log("passing deleet id is ", id);
+    return JobModel.findByIdAndDelete(id.substring(1)).exec();
 }
 
 function findJobByJobTitle(jobTitle) {

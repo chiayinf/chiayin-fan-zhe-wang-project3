@@ -24,6 +24,10 @@ exports.JobSchema = new Schema({
         type: String,
         default: "saved"
     },
+    createBy: {
+        type: String,
+         default: "pc"
+    },
 
 }, {
     collection: 'jobs'
