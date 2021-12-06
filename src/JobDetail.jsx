@@ -7,7 +7,7 @@ export default function() {
     const id = useParams().jobId;
     console.log("here", id);
 
-    const [ajob, setAJob] = useState([]);
+    const [job, setAJob] = useState([]);
 
 
     function findThatJob() {
@@ -19,33 +19,54 @@ export default function() {
     }
 
     useEffect(findThatJob, []);
-    console.log("jobs are", ajob.jobTitle);
+    console.log("jobs are", job.jobTitle);
 
     // const [job, setjob] = useState(null);
     // useEffect(findjobDetails, []);
 
 
-    // const jobComponent = job ? 
-    //     (<><div>
-    //         job Name: {job.name}
-    //     </div>
-    //     <div>
-    //         job Health: {job.health} 
-    //     </div></>) :
-    //     (<div> No job found </div>);
+    const jobComponent = job ? 
+        (<><div>
+            job Name: {job.jobTitle}
+        </div>
+        <div>
+            Company name: {job.companyName} 
+        </div>
+                <div>
+            Location: {job.location} 
+        </div>
+                <div>
+            Description: {job.description} 
+        </div>
+                        <div>
+           Employer email contact: {job.employerEmailContact} 
+        </div>
+                        <div>
+            CompanyWebsite: {job.dcompanyWebsite} 
+        </div>
+                                <div>
+            Posting date: {job.postingDate} 
+        </div>
+                                        <div>
+            Action status: {job.status} 
+        </div>
+        
+
+
+
+
+        </>) :
+        (<div> No job found </div>); //shouldn't see this 
 
     return (
         <>
-        <div>
-        soemthing here
+        
+        <h1>
+        Here is the detail page
+        </h1>
 
-
-            {/* {jobComponent} */}
-        </div>
-
-   <div>
-   {ajob.jobTitle}
-   </div>
+          {jobComponent} 
+        
         </>
     )
 }
