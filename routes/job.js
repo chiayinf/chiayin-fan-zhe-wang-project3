@@ -35,6 +35,7 @@ router.get('/:jobTitle', (request, response) => {
 
 router.get('/detail/:jobId', (request, response) => {
   const jobId = request.params.jobId;
+  console.log("job is ", jobId);
   if(!jobId) {
     return response.status(422).send("Missing Id");
   }
@@ -42,34 +43,18 @@ router.get('/detail/:jobId', (request, response) => {
   return JobModel.findJobByJobId(jobId)
     .then((jobResponse) => {
       console.log("res", jobResponse);
-        if(!jobResponse) {
-            response.status(404).send("Job not found");
-        }
+        // if(!jobResponse) {
+        //     response.status(404).send("Job not found");
+        // }
 
         response.send(jobResponse)
     })
-    .catch((error) => response.status(500).send("Issue getting job"))
+    .catch(
+      (error) => 
+      //response.status(500).send("Issue getting job", error)
+      response.status(404).send("No job")
+    )
 })
-
-
-router.get('/fav/:jobTitle:companyName', (request, response) => {
-  const jobTitle = request.params.jobTitle;
-  const companyName = request.params.companyName;
-  console.log("cm",companyName);
-  
-  return JobModel.findJobByJobId(jobId)
-    .then((jobResponse) => {
-      console.log("res", jobResponse);
-        if(!jobResponse) {
-            response.status(404).send("Job not found");
-        }
-
-        response.send(jobResponse)
-    })
-    .catch((error) => response.status(500).send("Issue getting job"))
-})
-
-
 
 router.post('/createNewJob', function(req, res) {
     console.log("passed", req.body);

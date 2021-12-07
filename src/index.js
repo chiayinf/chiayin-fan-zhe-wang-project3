@@ -21,7 +21,7 @@ ReactDOM.render(
       <Route exact path="/favorite" element={<Favorite />} />
       <Route exact path="/create" element={<Create />} />
       <Route path="/job/detail/:jobId" element={<JobDetail />} />
-    
+      <Route path="/favorite/detail/:jobId" element={<JobDetail />} />
     </Routes>
   </Router>,
   document.getElementById('root')

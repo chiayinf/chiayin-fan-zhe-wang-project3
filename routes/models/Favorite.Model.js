@@ -24,10 +24,10 @@ function updateStatusById(id, st) {
     return FavModel.findOneAndUpdate(id, { status: st }).exec();
 }
 
-// function findFavById(id) {
-//     console.log("passing uidJObid is ", id);
-//     return FavModel.findOne(id.substring(1)).exec();
-// }
+function findFavById(id) {
+    console.log("passing uidJObid is ", id);
+    return FavModel.findOne({id:id}).exec();
+}
 
 // Make sure to export a function after you create it!
 module.exports = {
@@ -35,5 +35,5 @@ module.exports = {
     getAllFavsForUserId,
     deleteFavById,
     updateStatusById,
-    //findFavById,
+    findFavById,
 };

@@ -13,10 +13,20 @@ exports.FavoriteSchema = new Schema({
     },
     favOrNot: {
         type: Boolean,
+        default:true,
     },
     status: {
         type: String,
         default: "Not Started"
+    },
+    jobTitle: {
+        type: String,
+    },
+    companyName: {
+        type: String,
+    },
+    location: {
+        type: String,
     },
 }, {
     collection: 'favorites'
