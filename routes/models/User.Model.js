@@ -1,14 +1,23 @@
 const mongoose = require("mongoose")
-const PokemonSchema = require('../schema/Pokemon.Schema').PokemonSchema
+const UserSchema = require('../schema/User.Schema').UserSchema
+const UserModel = mongoose.model("User", UserSchema);
 
-const PokemonModel = mongoose.model("Pokemon", PokemonSchema);
-
-function insertPokemon(pokemon) {
-    return PokemonModel.create(pokemon);
+function getAllUsers() {
+    return UserModel.find().exec();
 }
 
-function getAllPokemon() {
-    return PokemonModel.find().exec();
+function getAllUsers() {
+    return UserModel.find().exec();
+}
+
+
+function insertUser(user) {
+    return UserModel.create(user);
+}
+
+function findUserByUsername(username) {
+    return UserModel.findOne({username}).exec();
+    // { username: username }
 }
 
 function findPokemonByName(name) {
@@ -21,8 +30,15 @@ function findPokemonById(id) {
 
 // Make sure to export a function after you create it!
 module.exports = {
-    insertPokemon,
-    findPokemonByName,
-    getAllPokemon,
-    findPokemonById
+    getAllUsers,
+    findUserByUsername,
+    findAllFavoriteJobsByUsername,
+    findAllCreatedJobsByUsername,
+
+    insertUser,
+    insertFavoriteJob,
+    insertNewJob,
+
+    removeFavoriteJob,
+    removeJob,
 };

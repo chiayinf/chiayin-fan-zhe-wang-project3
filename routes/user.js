@@ -4,11 +4,14 @@ const router = express.Router();
 const UserModel = require('./models/User.Model');
 
 
-router.get('/findAll', function (req, res) {
-    return UserModel.getAllUser()
-        .then((userReponse) => response.status(200).send(userReponse))
+// Returns all known user
+router.get('/findAll', function(request, response) {
+    UserModel.getAllUsers()
+        .then((userResponse) => {
+            response.status(200).send(userResponse)
+        })  
         .catch(error => response.status(400).send(error))
-});
+})
 
 router.get('/find/:pokemonName', function (req, res) {
 
