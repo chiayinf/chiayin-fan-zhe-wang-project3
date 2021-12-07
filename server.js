@@ -1,4 +1,6 @@
 const express = require('express');
+const app = express();
+const path = require('path');
 const pokemon = require('./pokemon.js');
 // fix localhost 3000 and 8000
 var cors = require('cors')
@@ -9,18 +11,6 @@ const mongoDBEndpoint = "mongodb+srv://webdeva3:z876pxp6prGCS9E@webdeva3.ykuzi.m
  */
 const mongoose = require('mongoose');
 
-
-
-/* const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://<username>:<password>@webdeva3.ykuzi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(mongoDBEndpoint, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-}); */
-
-
 //Setup MongoDB Connection
 mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true })
 //Get the connection string   
@@ -29,7 +19,6 @@ const mongoDB = mongoose.connection;
 mongoDB.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));
 mongoDB.on('open', ()=> console.log('connect to mongoose!'));
 
-const app = express();
 
 app.use(cors())
 app.use(express.json());
@@ -39,10 +28,17 @@ app.use('/api/pokemon', pokemon);
 // Note that it is common practice got backend APIs in Node to start with the api prefix
 // to distinguish them from frontend routes 
 
-app.get('/', (req, res) => {
-    res.send('NOT BANANA!');
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+app.get('*', function (req, res) {
+    console.log("received request");
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+    // res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(8000, function() {
-    console.log('Starting server');
+
+
+app.listen(process.env.PORT || 8000, () => {
+  console.log('Starting server');
 });
