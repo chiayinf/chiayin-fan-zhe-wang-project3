@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const UserSchema = require('../schema/User.Schema').UserSchema
+
 const UserModel = mongoose.model("User", UserSchema);
 
 function getAllUsers() {
@@ -32,13 +33,13 @@ function findPokemonById(id) {
 module.exports = {
     getAllUsers,
     findUserByUsername,
-    findAllFavoriteJobsByUsername,
-    findAllCreatedJobsByUsername,
+    //findAllFavoriteJobsByUsername,
+    //findAllCreatedJobsByUsername,
 
     insertUser,
-    insertFavoriteJob,
-    insertNewJob,
+    //insertFavoriteJob,
+    //insertNewJob,
 
-    removeFavoriteJob,
-    removeJob,
+    //removeFavoriteJob,
+    //removeJob,
 };
