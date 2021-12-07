@@ -6,6 +6,7 @@ const FavModel = require('./models/Favorite.Model');
 // Returns all fav for a user
 router.get('/:userId', (request, response) => {
   const userId = request.params.userId;
+  console.log("usd", userId);
   if(!userId) {
     return response.status(422).send("Missing userId");
   }
@@ -18,7 +19,7 @@ router.get('/:userId', (request, response) => {
 
         response.send(favResponse)
     })
-    .catch((error) => response.status(500).send("Issue getting fav for userId"))
+    .catch((error) => response.status(500).send("Issue getting fav for userId", error))
 })
 
 
@@ -39,9 +40,9 @@ router.post('/:userId', function(req, res) {
 });
 
 
-router.put('/:userId', function(req, res) {
+router.put('/:favId', function(req, res) {
     //actually is the key
-    const id = request.params.userId;
+    const id = req.params.favId;
 
     console.log("passed", req.body);
 
@@ -67,7 +68,7 @@ router.delete('/:favId', (request, response) => {
       return response.status(422).send("Missing data");
     }
     
-    return FavModel.deleteJobById(favId)
+    return FavModel.deleteFavById(favId)
       .then((favResponse) => {
           if(!favResponse) {
               response.status(404).send("Job not found");
