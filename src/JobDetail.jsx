@@ -2,16 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'; 
-import {Navigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-
-export default function() {
+export default function(props) {
     const id = useParams().jobId;
     console.log("here", id);
 
     const [job, setAJob] = useState([]);
 
-
+    const navigate = useNavigate();
     function findThatJob() {
         axios.get('http://localhost:8000/api/jobs/detail/' + id)
             .then(response => {
@@ -31,7 +30,7 @@ function onDeleteClick() {
       .then((response) => {
         console.log(" delete done");
         alert("delete succeed")
-        return <Navigate to='/job' />
+        navigate('/job');
 
       })
       .catch((error) => {
@@ -40,6 +39,23 @@ function onDeleteClick() {
       });
   }
 
+
+  function favClick() {
+    // axios
+    //   .delete("http://localhost:8000/api/jobs/"+id)
+    //   .then((response) => {
+    //     console.log(" delete done");
+    //     alert("delete succeed")
+    //     // need to check 
+    //     this.props.history.push('/job')
+    //     //return <Navigate to='/job' />
+
+    //   })
+    //   .catch((error) => {
+    //     console.log("delete fail", error);
+    //     alert("delete fail")
+    //   });
+  }
 
     const jobComponent = job ? 
         (<><div>
@@ -86,6 +102,8 @@ function onDeleteClick() {
         
         <button >Edit</button>
         <button onClick={onDeleteClick}>Delete</button>
+        <button onClick={favClick}>Favorite</button>
+
         </>
     )
 }

@@ -28,7 +28,9 @@ exports.JobSchema = new Schema({
         type: String,
          default: "pc"
     },
-
+    companyImage:{
+        type: String,
+    },
 }, {
     collection: 'jobs'
 })

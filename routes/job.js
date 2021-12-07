@@ -2,6 +2,7 @@ const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const JobModel = require('./models/Job.Model');
+const favoriteModel = require('./models/Favorite.Model');
 const jwt = require('jsonwebtoken');
 const auth_middleware = require('./auth_middleware.js')
 
@@ -49,6 +50,25 @@ router.get('/detail/:jobId', (request, response) => {
     })
     .catch((error) => response.status(500).send("Issue getting job"))
 })
+
+
+router.get('/fav/:jobTitle:companyName', (request, response) => {
+  const jobTitle = request.params.jobTitle;
+  const companyName = request.params.companyName;
+  console.log("cm",companyName);
+  
+  return JobModel.findJobByJobId(jobId)
+    .then((jobResponse) => {
+      console.log("res", jobResponse);
+        if(!jobResponse) {
+            response.status(404).send("Job not found");
+        }
+
+        response.send(jobResponse)
+    })
+    .catch((error) => response.status(500).send("Issue getting job"))
+})
+
 
 
 router.post('/createNewJob', function(req, res) {

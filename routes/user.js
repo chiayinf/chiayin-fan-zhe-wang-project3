@@ -14,14 +14,6 @@ router.get('/findAllUser', function(request, response) {
         .catch(error => response.status(400).send(error))
 })
 
-router.get('/findAllJob', function(request, response) {
-    UserModel.getAllUsers()
-        .then((userResponse) => {
-            response.status(200).send(userResponse)
-        })  
-        .catch(error => response.status(400).send(error))
-})
-
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
     const username = request.session.username;
 
@@ -52,14 +44,6 @@ router.get('/:username', (request, response) => {
         response.send(userResponse)
     })
     .catch((error) => response.status(500).send("Issue getting user"))
-
-  // pokemons.push({
-  //   name: name,
-  //   health: health,
-  // })
-
-  // response.send("Success!")
-
 })
 
 router.post('/authenticate', function(request, response) {

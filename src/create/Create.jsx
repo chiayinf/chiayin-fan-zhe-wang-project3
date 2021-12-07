@@ -3,23 +3,21 @@ import React, { useEffect, useState } from "react";
 import ImageUpload from "../ImageUpload";
 import RichText from "../RichText";
 
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useNavigate } from 'react-router-dom';
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-
-export default function Create() {
-
-
+export default function Create(props) {
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
-    const [locationInput, setLocationInput] = useState("");
+  const [locationInput, setLocationInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
-    const [emailInput, setEmailInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
   const [companyWebsiteInput, setCompanyWebsiteInput] = useState("");
 
-
   const [errorMsg, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   function onSubmitButtonClick() {
     // const job = axios.get('...')
@@ -36,42 +34,48 @@ export default function Create() {
       return;
     }
 
-        if (!locationInput) {
+    if (!locationInput) {
       setError("You must type in a  locationInput.");
 
       alert("You must type inlocationInput.");
       return;
-       }
-              if (!descriptionInput) {
+    }
+    if (!descriptionInput) {
       setError("You must type in a  descriptionInput.");
 
       alert("You must type inldescriptionInput.");
       return;
-       }
-              if (!emailInput) {
+    }
+    if (!emailInput) {
       setError("You must type in a emailInput");
 
       alert("You must type emailInput.");
       return;
-       }
-    
+    }
 
     console.log("hello, there", jobTitleInput);
-    const input = { jobTitle: jobTitleInput, companyName: companyNameInput, location: locationInput, description:descriptionInput, employerEmailContact:emailInput, companyWebsite: companyWebsiteInput };
+    const input = {
+      jobTitle: jobTitleInput,
+      companyName: companyNameInput,
+      location: locationInput,
+      description: descriptionInput,
+      employerEmailContact: emailInput,
+      companyWebsite: companyWebsiteInput,
+    };
 
     axios
       .post("http://localhost:8000/api/jobs/createNewJob", input)
       .then((response) => {
         console.log("done");
         alert("create succeed");
+        navigate('/job');
       })
       .catch((error) => {
         console.log("fial", error);
-        setError( error);
+        setError(error);
         alert("create fail");
       });
-      //debugger;
-
+    //debugger;
   }
   return (
     <>
@@ -101,8 +105,8 @@ export default function Create() {
             setCompanyNameInput(e.target.value);
           }}
         />
-         <div>Company Location</div>
-                <input
+        <div>Company Location</div>
+        <input
           type="text"
           value={locationInput}
           onChange={(e) => {
@@ -110,8 +114,8 @@ export default function Create() {
             setLocationInput(e.target.value);
           }}
         />
-         <div>Company Email</div>
-                <input
+        <div>Company Email</div>
+        <input
           type="email"
           value={emailInput}
           onChange={(e) => {
@@ -119,8 +123,8 @@ export default function Create() {
             setEmailInput(e.target.value);
           }}
         />
-         <div>Company Website</div>
-                <input
+        <div>Company Website</div>
+        <input
           type="text"
           value={companyWebsiteInput}
           onChange={(e) => {
@@ -129,28 +133,27 @@ export default function Create() {
           }}
         />
 
-      
-<div>Fill in Job description</div>
-    <CKEditor
-        editor={ ClassicEditor }
-        data=""
-        // data="<p>Type in anything you want!</p>"
-        onReady={ editor => {
+        <div>Fill in Job description</div>
+        <CKEditor
+          editor={ClassicEditor}
+          data=""
+          // data="<p>Type in anything you want!</p>"
+          onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
-            console.log( 'Editor is ready to use!', editor );
-        } }
-        onChange={ ( event, editor ) => {
+            console.log("Editor is ready to use!", editor);
+          }}
+          onChange={(event, editor) => {
             const data = editor.getData();
-            console.log("done data", { event, editor, data } );
+            console.log("done data", { event, editor, data });
             setDescriptionInput(data);
-        } }
-        onBlur={ ( event, editor ) => {
-            console.log( 'Blur.', editor );
-        } }
-        onFocus={ ( event, editor ) => {
-            console.log( 'Focus.', editor );
-        } }
-    />
+          }}
+          onBlur={(event, editor) => {
+            console.log("Blur.", editor);
+          }}
+          onFocus={(event, editor) => {
+            console.log("Focus.", editor);
+          }}
+        />
 
         <button onClick={onSubmitButtonClick}>Submit</button>
         {/* <div>company Name: {companyNameInput}</div> */}
@@ -158,7 +161,7 @@ export default function Create() {
       <br />
       {/* <RichText /> */}
 
-<ImageUpload />
+      <ImageUpload />
       <br />
     </>
   );
