@@ -1,7 +1,7 @@
 {
-  "name": "project3",
+  "name": "hunter_fall2021_cs5610_mod3",
   "proxy": "http://localhost:8000",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
