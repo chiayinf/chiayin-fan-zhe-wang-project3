@@ -1,7 +1,6 @@
 {
   "name": "hunter_fall2021_cs5610_mod3",
   "proxy": "http://localhost:8000",
-
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,8 +12,11 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "concurrently": "^6.4.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

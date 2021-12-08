@@ -5,7 +5,7 @@ const users = require('./routes/user.js');
 const pokemon = require('./routes/pokemon.js');
 const mongoose = require('mongoose');
 
-
+const cookieParser = require('cookie-parser');
 
 
 // fix localhost 3000 and 8000
@@ -27,6 +27,9 @@ mongoDB.on('open', ()=> console.log('connect to mongoose!'));
 const app = express();
 
 app.use(cors())
+app.use(cookieParser());
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
