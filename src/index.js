@@ -10,6 +10,7 @@ import Favorite from './favorite/Favorite';
 import Create from './create/Create';
 import JobDetail from './JobDetail';
 import reportWebVitals from './reportWebVitals';
+import Edit from './edit/Edit';
 
 ReactDOM.render(
   <Router >
@@ -20,6 +21,7 @@ ReactDOM.render(
       <Route exact path="/job" element={<Job />} />
       <Route exact path="/favorite" element={<Favorite />} />
       <Route exact path="/create" element={<Create />} />
+      <Route path="/edit/:jobId" element={<Edit />} />
       <Route path="/job/detail/:jobId" element={<JobDetail />} />
       <Route path="/favorite/detail/:jobId" element={<JobDetail />} />
     </Routes>

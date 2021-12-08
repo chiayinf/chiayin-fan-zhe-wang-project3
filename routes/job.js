@@ -7,27 +7,27 @@ const jwt = require('jsonwebtoken');
 const auth_middleware = require('./auth_middleware.js')
 
 // Returns all Jobs
-router.get('/findAllJob', function(request, response) {
-    JobModel.getAllJobs()
-        .then((JobResponse) => {
-            response.status(200).send(JobResponse)
-        })  
-        .catch(error => response.status(400).send(error))
+router.get('/findAllJob', function (request, response) {
+  JobModel.getAllJobs()
+    .then((JobResponse) => {
+      response.status(200).send(JobResponse)
+    })
+    .catch(error => response.status(400).send(error))
 })
 
 router.get('/:jobTitle', (request, response) => {
   const jobTitle = request.params.jobTitle;
-  if(!jobTitle) {
+  if (!jobTitle) {
     return response.status(422).send("Missing data");
   }
-  
+
   return JobModel.findJobByJobTitle(jobTitle)
     .then((jobResponse) => {
-        if(!jobResponse) {
-            response.status(404).send("Job not found");
-        }
+      if (!jobResponse) {
+        response.status(404).send("Job not found");
+      }
 
-        response.send(jobResponse)
+      response.send(jobResponse)
     })
     .catch((error) => response.status(500).send("Issue getting job"))
 })
@@ -36,75 +36,76 @@ router.get('/:jobTitle', (request, response) => {
 router.get('/detail/:jobId', (request, response) => {
   const jobId = request.params.jobId;
   console.log("job is ", jobId);
-  if(!jobId) {
+  if (!jobId) {
     return response.status(422).send("Missing Id");
   }
-  
+
   return JobModel.findJobByJobId(jobId)
     .then((jobResponse) => {
       console.log("res", jobResponse);
-        // if(!jobResponse) {
-        //     response.status(404).send("Job not found");
-        // }
+      // if(!jobResponse) {
+      //     response.status(404).send("Job not found");
+      // }
 
-        response.send(jobResponse)
+      response.send(jobResponse)
     })
     .catch(
-      (error) => 
-      //response.status(500).send("Issue getting job", error)
-      response.status(404).send("No job")
+      (error) =>
+        //response.status(500).send("Issue getting job", error)
+        response.status(404).send("No job")
     )
 })
 
-router.post('/createNewJob', function(req, res) {
-    console.log("passed", req.body);
-    const { jobTitle, companyName,location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
-    if (!jobTitle) {
-        return res.status(422).send("Missing jobTitle: " + jobTitle )
-    }
+router.post('/createNewJob', function (req, res) {
+  console.log("passed", req.body);
+  const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
+  if (!jobTitle) {
+    return res.status(422).send("Missing jobTitle: " + jobTitle)
+  }
 
-    return JobModel.insertJob({jobTitle, companyName,location, description, employerEmailContact, createBy,companyWebsite, companyImage})
-        .then((jobResponse) => {
-                return res.status(200).send(jobResponse);
+  return JobModel.insertJob({ jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage })
+    .then((jobResponse) => {
+      return res.status(200).send(jobResponse);
 
-        })
-        .catch(error => res.status(400).send(error))
+    })
+    .catch(error => res.status(400).send(error))
 
 });
 
 
-router.put('/detail/:jobId', function(req, res) {
+router.put('/detail/:jobId', function (req, res) {
   console.log("passed", req.body);
-  const { jobTitle, companyName,location, description, employerEmailContact, companyWebsite, companyImage } = req.body;
+  const jobId = req.params.jobId;
+  const { _id,jobTitle, companyName, location, description, employerEmailContact, companyWebsite, companyImage } = req.body;
   if (!jobId) {
-      return res.status(422).send("Missing jobId: " + jobId )
+    return res.status(422).send("Missing jobId: " + jobId)
   }
 
-  return JobModel.updateJobByJobId(jobId, {jobTitle, companyName,location, description, employerEmailContact, companyWebsite, companyImage})
-      .then((jobResponse) => {
-              return res.status(200).send(jobResponse);
+  return JobModel.updateJobByJobId(jobId, req.body)
+    .then((jobResponse) => {
+      return res.status(200).send(jobResponse);
 
-      })
-      .catch(error => res.status(400).send(error))
+    })
+    .catch(error => res.status(400).send(error))
 
 });
 
 router.delete('/:jobId', (request, response) => {
-    const jobId = request.params.jobId;
-    if(!jobId) {
-      return response.status(422).send("Missing data");
-    }
-    
-    return JobModel.deleteJobById(jobId)
-      .then((jobResponse) => {
-          if(!jobResponse) {
-              response.status(404).send("Job not found");
-          }
-  
-          response.send(jobResponse)
-      })
-      .catch((error) => response.status(500).send("Issue getting job"))
-  })
-  
+  const jobId = request.params.jobId;
+  if (!jobId) {
+    return response.status(422).send("Missing data");
+  }
+
+  return JobModel.deleteJobById(jobId)
+    .then((jobResponse) => {
+      if (!jobResponse) {
+        response.status(404).send("Job not found");
+      }
+
+      response.send(jobResponse)
+    })
+    .catch((error) => response.status(500).send("Issue getting job"))
+})
+
 
 module.exports = router;

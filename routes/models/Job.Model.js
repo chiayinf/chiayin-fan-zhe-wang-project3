@@ -30,6 +30,7 @@ function findJobByJobId(id) {
 }
 
 function updateJobByJobId(id, job) {
+    console.log("update id is ", id);
     return JobModel.findByIdAndUpdate(id, job).exec();
 }
 

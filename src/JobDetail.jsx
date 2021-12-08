@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import ReactHtmlParser from "react-html-parser";
 import { useNavigate } from "react-router-dom";
 
+
 export default function (props) {
   let id = useParams().jobId;
   // console.log("here", id);
@@ -161,7 +162,10 @@ export default function (props) {
 
       {jobComponent}
 
-      <button>Edit</button>
+      <button onClick={(onEdit)=>{
+navigate("/edit/:" + id);
+      }
+      }>Edit</button>
       <button onClick={onDeleteClick}>Delete</button>
       <button onClick={favClick}>Favorite</button>
       <div> fav St: {fav}</div>
