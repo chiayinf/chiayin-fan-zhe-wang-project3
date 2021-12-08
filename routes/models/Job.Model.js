@@ -18,8 +18,8 @@ function deleteJobById(id) {
     return JobModel.findByIdAndDelete(id).exec();
 }
 
-function findJobByJobTitle(jobTitle) {
-    return JobModel.find({ jobTitle }).exec();
+function findJobByJobTitle(jt) {
+    return JobModel.find({jobTitle: { "$regex" : jt , "$options" : "i"}}).exec();
 }
 
 function findJobByJobId(id) {

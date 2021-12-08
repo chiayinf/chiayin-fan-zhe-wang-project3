@@ -24,7 +24,7 @@ function App() {
       <h1>
       Hey! Name the Job you want!
       </h1>
-      <input type='text' value={formInput}
+      <input type='text' placeholder="type keyword in job title" value={formInput}
       onChange={(e) => setFormInput(e.target.value)} />
       <button onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
         Search for Jobs
