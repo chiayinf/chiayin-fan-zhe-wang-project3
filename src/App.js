@@ -40,6 +40,9 @@ function App() {
       <button onClick={onSearchButtonClick=> navigate('/job')}>
         job
       </button>
+      <button onClick={onSearchButtonClick=> navigate('/login')}>
+        LogIn
+      </button>
       <div>
         Pokemon Name: {pokemon.name}
       </div>
