@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate } from "react-router-dom";
-import '../style.css';
+import "../style.css";
 
 export default function Create(props) {
   const userId = "pc";
@@ -26,8 +26,6 @@ export default function Create(props) {
   const navigate = useNavigate();
 
   function onSubmitButtonClick() {
- 
-
     // if (!jobTitleInput) {
     //   setError("You must type in a job name.");
     //   return;
@@ -90,7 +88,7 @@ export default function Create(props) {
     <>
       <h1>You are trying to create a new job</h1>
       {errorMsg}
-{/* 
+      {/* 
       <ImageUpload setImg={setImg} />
  
       <form>
@@ -161,7 +159,7 @@ export default function Create(props) {
 
       <Form>
         <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label className="reqField" >Job Title</Form.Label>
+          <Form.Label className="reqField">Job Title</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter the job title you want to create"
@@ -170,7 +168,7 @@ export default function Create(props) {
               setError(null);
               setJobTitleInput(e.target.value);
             }}
-            required 
+            required
           />
         </Form.Group>
 
@@ -214,7 +212,7 @@ export default function Create(props) {
 
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Company Website</Form.Label>
-          <Form.Control type="text" placeholder="Company websit is optional" />
+          <Form.Control type="text" placeholder="Enter the Company website" />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicText">

@@ -30,8 +30,21 @@ function App() {
       <h1>
       Hey! Name the Job you want!
       </h1>
-      <input type='text' placeholder="type keyword in job title" value={formInput}
-      onChange={(e) => setFormInput(e.target.value)} />
+      {/* <input type='text' placeholder="type keyword in job title" value={formInput}
+      onChange={(e) => setFormInput(e.target.value)} /> */}
+
+<Form>
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label ></Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="type keyword in job title for search"
+            value={formInput}
+            onChange={(e) => setFormInput(e.target.value)}
+       
+          />
+        </Form.Group>
+        </Form>
       <Button
                     variant="primary" onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
         Search for Jobs
