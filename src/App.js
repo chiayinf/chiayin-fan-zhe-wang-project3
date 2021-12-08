@@ -3,6 +3,11 @@ import './App.css';
 import { useState } from 'react';
 import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function App() {
   const [formInput, setFormInput] = useState('');
@@ -21,14 +26,17 @@ function App() {
   return (
     <div>
       <div class = "main">
+   
       <h1>
       Hey! Name the Job you want!
       </h1>
       <input type='text' placeholder="type keyword in job title" value={formInput}
       onChange={(e) => setFormInput(e.target.value)} />
-      <button onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
+      <Button
+                    variant="primary" onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
         Search for Jobs
-      </button>
+      </Button>
+
  </div>
 
       <br/>
