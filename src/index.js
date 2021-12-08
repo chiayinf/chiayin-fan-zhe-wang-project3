@@ -11,9 +11,12 @@ import Create from './create/Create';
 import JobDetail from './JobDetail';
 import reportWebVitals from './reportWebVitals';
 import Edit from './edit/Edit';
+import Navbar from './Navbar.jsx';
+
 
 ReactDOM.render(
   <Router >
+    <Navbar />
     <Routes>
       <Route exact path="/" element={<App />} />
       <Route exact path="/login" element={<Login />} />

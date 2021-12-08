@@ -1,0 +1,31 @@
+.navbarContainer{
+    display: flex;
+    width: 100vw;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: teal;
+    font-weight: bold;
+    font-size: 20px;
+    height: 2em;
+}
+
+.navbarContainer a{
+    color: white;
+}
+
+.navbarContainer a:hover{
+    color: black;
+}
+
+.navbarContainer #logout{
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+}
+
+#logout:hover{
+    color: black;
+}

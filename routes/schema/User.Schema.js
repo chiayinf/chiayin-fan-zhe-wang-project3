@@ -11,6 +11,9 @@ exports.UserSchema = new Schema({
     favorites: {
         type: Array,
     },
+    created: {
+        type: Array,
+    },
     
 // this explicitly declares what collection we're using
 }, { collection : 'users' });
