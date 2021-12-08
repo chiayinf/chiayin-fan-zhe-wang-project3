@@ -146,7 +146,7 @@ export default function (props) {
           <option value="Rejected">Rejected</option>
         </select> */}
         <br/>
-        <div> change your job application status: {fav}</div>
+        <div> change your job application status:</div>
         <Form.Select val={jobSt} onChange={onListen}>
           <option value="Not Started">Not Started</option>
           <option value="Applied">Applied</option>

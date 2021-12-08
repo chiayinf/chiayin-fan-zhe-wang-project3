@@ -49,9 +49,9 @@ export default function Job() {
     })
     return (
         <>
-        <h1> These are all Favorite jobs for you</h1>
-        {/* {jobListComponent } */}
-        <ListJobDisplay jobs = {allJobs}/>
+        <h1> These are your Favorite jobs</h1>
+        {jobListComponent }
+        {/* <ListJobDisplay jobs = {allJobs}/> */}
         </>
     )
 }
