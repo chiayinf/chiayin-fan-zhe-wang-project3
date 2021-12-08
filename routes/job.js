@@ -58,12 +58,12 @@ router.get('/detail/:jobId', (request, response) => {
 
 router.post('/createNewJob', function(req, res) {
     console.log("passed", req.body);
-    const { jobTitle, companyName,location, description, employerEmailContact, companyWebsite } = req.body;
+    const { jobTitle, companyName,location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
     if (!jobTitle) {
         return res.status(422).send("Missing jobTitle: " + jobTitle )
     }
 
-    return JobModel.insertJob({jobTitle, companyName,location, description, employerEmailContact, companyWebsite})
+    return JobModel.insertJob({jobTitle, companyName,location, description, employerEmailContact, createBy,companyWebsite, companyImage})
         .then((jobResponse) => {
                 return res.status(200).send(jobResponse);
 
@@ -71,6 +71,24 @@ router.post('/createNewJob', function(req, res) {
         .catch(error => res.status(400).send(error))
 
 });
+
+
+router.put('/detail/:jobId', function(req, res) {
+  console.log("passed", req.body);
+  const { jobTitle, companyName,location, description, employerEmailContact, companyWebsite, companyImage } = req.body;
+  if (!jobId) {
+      return res.status(422).send("Missing jobId: " + jobId )
+  }
+
+  return JobModel.updateJobByJobId(jobId, {jobTitle, companyName,location, description, employerEmailContact, companyWebsite, companyImage})
+      .then((jobResponse) => {
+              return res.status(200).send(jobResponse);
+
+      })
+      .catch(error => res.status(400).send(error))
+
+});
+
 router.delete('/:jobId', (request, response) => {
     const jobId = request.params.jobId;
     if(!jobId) {

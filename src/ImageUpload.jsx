@@ -1,26 +1,51 @@
-import React from "react";
+import axios from 'axios';
+import React,{ useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 //https://medium.com/@ibamibrhm/custom-upload-button-image-preview-and-image-upload-with-react-hooks-a7977618ee8c
 
 //https://dev.to/asimdahall/client-side-image-upload-in-react-5ffc
 
-export default function ImageUpload() {
+export default function ImageUpload(props) {
+  
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
   const handleImageUpload = e => {
     const [file] = e.target.files;
+    console.log("f",e.target.files );
+    console.log("ff",file);
+    
     if (file) {
       const reader = new FileReader();
       const { current } = uploadedImage;
+      
+
+      console.log("cuyr", current);
       current.file = file;
       reader.onload = e => {
         current.src = e.target.result;
+        props.setImg(current.src);
       };
+      console.log("cuee", current);
       reader.readAsDataURL(file);
     }
   };
+  
+  // function submitImage() {
+  //   const api = "http://localhost:8000/api/jobs/detail/" +jobId;
+  //   axios
+  //     .put(api, {companyImage:img})
+  //     .then((response) => {
+  //       console.log("done", response);
+  //       alert("submitDIelet ");
+  //     })
+  //     .catch((error) => {
+  //       console.log("fav ", error);
+  //       alert("fav fail");
+  //     });
+  // }
+  
 
   return (
     <div
@@ -58,7 +83,7 @@ export default function ImageUpload() {
         />
       </div >
       <button  onClick={() => imageUploader.current.click()}>  Click to upload Image</button>
-     
+      {/* <button  onClick={submitImage}>Submit Image</button> */}
     </div>
   );
 }

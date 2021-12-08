@@ -52,14 +52,19 @@ export default function (props) {
       const api = "http://localhost:8000/api/favs/" + favId;
       console.log("api is ", api);
       axios
-        .post(api, { id: favId, userId: userId, jobId: id, jobTitle:job.jobTitle,
-            companyName:job.companyName,
-            location:job.location  })
+        .post(api, {
+          id: favId,
+          userId: userId,
+          jobId: id,
+          jobTitle: job.jobTitle,
+          companyName: job.companyName,
+          location: job.location,
+        })
         .then((response) => {
           console.log(response.data);
           alert("fav succeed");
           setFav("fav");
-          setSt(response.data["status"])
+          setSt(response.data["status"]);
         })
         .catch((error) => {
           console.log("fav ", error);
@@ -81,7 +86,8 @@ export default function (props) {
         });
     }
   }
-
+  console.log("jcc", job);
+  console.log(typeof job.companyImage);
   const jobComponent = job ? (
     <>
       <div>job Name: {job.jobTitle}</div>
@@ -95,28 +101,31 @@ export default function (props) {
       <div>CompanyWebsite: {job.companyWebsite}</div>
       <div>Posting date: {job.postingDate}</div>
       <div>Action status: {job.status}</div>
+      <div>
+        Image:
+        <img src={job.companyImage} ></img>
+      </div>
     </>
   ) : (
     <div> No job found </div>
   ); //shouldn't see this
 
-  const jobStComponent = fav ==="fav" ? (
-    <>
-
-<div> currApplyStatus: {jobSt}</div>
-      <label for="jstatus">Change your status:</label>
-      <select name="jstatus" id="jstatus">
-        <option value="Not started">Not started</option>
-        <option value="Applied">Applied</option>
-        <option value="Interview scheduled">Interview scheduled</option>
-        <option value="Accepted">Accepted</option>
-        <option value="Rejected">Rejected</option>
-      </select>
-
-    </>
-  ) : (
-    <div> make it Fav to change job Status </div>
-  ); //shouldn't see this
+  const jobStComponent =
+    fav === "fav" ? (
+      <>
+        <div> currApplyStatus: {jobSt}</div>
+        <label for="jstatus">Change your status:</label>
+        <select name="jstatus" id="jstatus">
+          <option value="Not started">Not started</option>
+          <option value="Applied">Applied</option>
+          <option value="Interview scheduled">Interview scheduled</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </>
+    ) : (
+      <div> make it Fav to change job Status </div>
+    ); //shouldn't see this
 
   return (
     <>
@@ -133,7 +142,7 @@ export default function (props) {
   );
 }
 
-function findFavStatus(userId, jobId, setFav,setSt) {
+function findFavStatus(userId, jobId, setFav, setSt) {
   const api = "http://localhost:8000/api/favs/detail/" + userId + "_" + jobId;
   axios
     .get(api)

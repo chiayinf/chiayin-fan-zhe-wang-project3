@@ -3,18 +3,20 @@ import React, { useEffect, useState } from "react";
 import ImageUpload from "../ImageUpload";
 import RichText from "../RichText";
 
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Create(props) {
+  const userId = "pc";
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [companyWebsiteInput, setCompanyWebsiteInput] = useState("");
-
+  const [img, setImg] = useState("");
   const [errorMsg, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -54,6 +56,7 @@ export default function Create(props) {
     }
 
     console.log("hello, there", jobTitleInput);
+    console.log("imh is ", img);
     const input = {
       jobTitle: jobTitleInput,
       companyName: companyNameInput,
@@ -61,6 +64,8 @@ export default function Create(props) {
       description: descriptionInput,
       employerEmailContact: emailInput,
       companyWebsite: companyWebsiteInput,
+      createBy: userId, 
+      companyImage:img,
     };
 
     axios
@@ -68,7 +73,7 @@ export default function Create(props) {
       .then((response) => {
         console.log("done");
         alert("create succeed");
-        navigate('/job');
+        navigate("/job");
       })
       .catch((error) => {
         console.log("fial", error);
@@ -77,10 +82,15 @@ export default function Create(props) {
       });
     //debugger;
   }
+
   return (
     <>
       <h1>This is the page for create a job</h1>
       {errorMsg}
+
+      <ImageUpload setImg = {setImg}/>
+      <br />
+
       <form>
         {/* <label>
           JobTitle
@@ -161,8 +171,8 @@ export default function Create(props) {
       <br />
       {/* <RichText /> */}
 
-      <ImageUpload />
       <br />
+
     </>
   );
 }
