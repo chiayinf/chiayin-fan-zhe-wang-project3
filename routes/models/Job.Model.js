@@ -19,7 +19,7 @@ function deleteJobById(id) {
 }
 
 function findJobByJobTitle(jobTitle) {
-    return JobModel.findOne({ jobTitle }).exec();
+    return JobModel.find({ jobTitle }).exec();
 }
 
 function findJobByJobId(id) {

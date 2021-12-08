@@ -11,8 +11,6 @@ function App() {
   })
   const navigate = useNavigate();
   function onSearchButtonClick() {
-    // const pokemon = axios.get('...')
-    // console.log(pokemon);
 
     axios.get('http://localhost:8000/api/pokemon/find/pikachu')
       .then(response => setPokemon(response.data))
@@ -22,15 +20,18 @@ function App() {
 
   return (
     <div>
-      
+      <div class = "main">
       <h1>
-      name it whatever you please job board
+      Hey! Name the Job you want!
       </h1>
       <input type='text' value={formInput}
       onChange={(e) => setFormInput(e.target.value)} />
-      <button onClick={onSearchButtonClick=> navigate('/search')}>
+      <button onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
         Search for Jobs
       </button>
+ </div>
+
+      <br/>
       <button onClick={onSearchButtonClick=> navigate('/create')}>
         Create Jobs
       </button>
@@ -43,12 +44,6 @@ function App() {
       <button onClick={onSearchButtonClick=> navigate('/login')}>
         LogIn
       </button>
-      <div>
-        Pokemon Name: {pokemon.name}
-      </div>
-      <div>
-        Pokemon Health: {pokemon.health}
-      </div>
 
     </div>
  
