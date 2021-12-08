@@ -21,6 +21,9 @@ export default function Search() {
 
     useEffect(findAllJobs, []);
     console.log("jobs are", allJobs);
+    if(allJobs.length === 0){
+        return (<h1> No Job found with key word: {term}</h1>);
+    }
 
     const jobListComponent = allJobs.map(job => {
 
@@ -35,7 +38,7 @@ export default function Search() {
     })
     return (
         <>
-        <h1> These are all jobs with your searching key word: {term}</h1>
+        <h1> These are all jobs with key word: {term}</h1>
         {/* {jobListComponent } */}
         <ListJobDisplay jobs = {allJobs}/>
         </>
