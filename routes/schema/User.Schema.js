@@ -8,7 +8,9 @@ exports.UserSchema = new Schema({
     },
     password: String,
     jobs:[String],
-    favorites: [String],
+    favorites: {
+        type: Array,
+    },
     
 // this explicitly declares what collection we're using
 }, { collection : 'users' });

@@ -6,6 +6,10 @@ const pokemon = require('./routes/pokemon.js');
 const mongoose = require('mongoose');
 
 const cookieParser = require('cookie-parser');
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
+
+
 
 
 // fix localhost 3000 and 8000
@@ -25,6 +29,13 @@ mongoDB.on('error', console.error.bind(console, 'Error connecting to MongoDB:'))
 mongoDB.on('open', ()=> console.log('connect to mongoose!'));
 
 const app = express();
+
+//app.use(session({secret: "SUPER_DUPER_SECRET"}));
+
+// Store session in mongoDB
+app.use(session({secret: "SUPER_DUPER_SECRET",
+    store: MongoStore.create({ mongoUrl: mongoDBEndpoint }),
+}));
 
 app.use(cors())
 app.use(cookieParser());

@@ -16,6 +16,8 @@ router.get('/findAll', function(request, response) {
         .catch(error => response.status(400).send(error))
 })
 
+
+// http://localhost:8000/api/users/whoIsLoggedIn
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
     const username = request.session.username;
 
@@ -101,16 +103,16 @@ router.post('/authenticate', function(request, response) {
             }
             if (userResponse.password === password) {
 
-                 const payload = {username: username};
+                //  const payload = {username: username};
 
-                 const token = jwt.sign(payload, "SUPER_DUPER_SECRET", {
-                     expiresIn: '14d',
-                 });
+                //  const token = jwt.sign(payload, "SUPER_DUPER_SECRET", {
+                //      expiresIn: '14d',
+                //  });
 
-                //request.session.username = username;
+                request.session.username = username;
 
-                return response.cookie('huntersCookie', token, {httpOnly: true}).status(200).send({username});
-                //return response.status(200).send({username});
+                //return response.cookie('huntersCookie', token, {httpOnly: true}).status(200).send({username});
+                return response.status(200).send({username});
 
                 // return response.status(200).send("User is logged in!")
             } else {
