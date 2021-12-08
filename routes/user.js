@@ -157,6 +157,12 @@ router.post('/insertCreatedJobByUser/:username/:jobId', function (req, res) {
         .catch(error => res.status(400).send(error))
 })
 
+router.post("/logout&", function(req, res) {
+    req.session.destroy;
+    res.send("Logged out");
+
+})
+
 router.delete('/logut', function (req, res) {
     req.session.destroy();
     return res.status(200).send(req.session);
