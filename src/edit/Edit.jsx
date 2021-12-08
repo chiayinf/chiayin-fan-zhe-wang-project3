@@ -6,6 +6,12 @@ import { useParams } from "react-router";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+
+
 
 export default function Edit(props) {
   const userId = "pc";
@@ -113,18 +119,13 @@ export default function Edit(props) {
 
   return (
     <>
-      <h1>Editing mode for your job</h1>
-      {errorMsg}
+      <h1>Your are in the Editing mode for job {jobTitleInput}</h1>
+     
 
-      <ImageUpload setImg={setImg} />
+      {/* <ImageUpload setImg={setImg} />
       <br />
 
       <form>
-        {/* <label>
-          JobTitle
-          <input type="text" name="jobTitle" />
-        </label> */}
-        {/* <input type="submit" value="Submit" /> */}
         <div>JobTitle</div>
         <input
           type="text"
@@ -196,6 +197,95 @@ export default function Edit(props) {
         <button onClick={onSubmitButtonClick}>Submit</button>
       </form>
       <br />
+ */}
+
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Job Title</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter the job title you want to create"
+            value={jobTitleInput}
+            onChange={(e) => {
+              setError(null);
+              setJobTitleInput(e.target.value);
+            }}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Company Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter the company"
+            value={companyNameInput}
+            onChange={(e) => {
+              setError(null);
+              setCompanyNameInput(e.target.value);
+            }}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Company Location</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter the location for this job"
+            value={locationInput}
+            onChange={(e) => {
+              setError(null);
+              setLocationInput(e.target.value);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="reqField">Company Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email for company contacter"
+            value={emailInput}
+            onChange={(e) => {
+              setError(null);
+              setEmailInput(e.target.value);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label>Company Website</Form.Label>
+          <Form.Control type="text" placeholder="Enter the Company website" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Job Description</Form.Label>
+
+          <CKEditor
+            editor={ClassicEditor}
+            data={descriptionInput}
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log("done data", { event, editor, data });
+              setDescriptionInput(data);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label>Upload New image for company</Form.Label>
+          <Form.Text className="text-muted">(optional)</Form.Text>
+          <ImageUpload setImg={setImg} />
+        </Form.Group>
+
+        <Button variant="primary" type="submit" onClick={onSubmitButtonClick}>
+          Submit
+        </Button>
+      </Form>
+
       <br />
     </>
   );

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import JobDetail from "../JobDetail";
+import ListJobDisplay from "../ListJobDisplay";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 //temp for listing all jobs 
 export default function Job() {
@@ -48,8 +49,9 @@ export default function Job() {
     })
     return (
         <>
-        <h1> These are all Favorite jobs for you</h1>
+        <h1> These are your Favorite jobs</h1>
         {jobListComponent }
+        {/* <ListJobDisplay jobs = {allJobs}/> */}
         </>
     )
 }

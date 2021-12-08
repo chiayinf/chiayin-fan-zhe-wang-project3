@@ -27,6 +27,7 @@ ReactDOM.render(
       <Route path="/edit/:jobId" element={<Edit />} />
       <Route path="/job/detail/:jobId" element={<JobDetail />} />
       <Route path="/favorite/detail/:jobId" element={<JobDetail />} />
+      <Route path="/search/detail/:jobId" element={<JobDetail />} />
     </Routes>
   </Router>,
   document.getElementById('root')

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import JobDetail from "../JobDetail";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import ListJobDisplay from "../ListJobDisplay";
 export default function Search() {
 
     const queryString = window.location.search;
@@ -20,6 +21,9 @@ export default function Search() {
 
     useEffect(findAllJobs, []);
     console.log("jobs are", allJobs);
+    if(allJobs.length === 0){
+        return (<h1> No Job found with key word: {term}</h1>);
+    }
 
     const jobListComponent = allJobs.map(job => {
 
@@ -34,8 +38,9 @@ export default function Search() {
     })
     return (
         <>
-        <h1> These are all jobs with your searching key word: {term}</h1>
-        {jobListComponent }
+        <h1> These are all jobs with key word: {term}</h1>
+        {/* {jobListComponent } */}
+        <ListJobDisplay jobs = {allJobs}/>
         </>
     )
 }

@@ -2,11 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ImageUpload from "../ImageUpload";
 import RichText from "../RichText";
-
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate } from "react-router-dom";
+import "../style.css";
 
 export default function Create(props) {
   const userId = "pc";
@@ -22,41 +26,38 @@ export default function Create(props) {
   const navigate = useNavigate();
 
   function onSubmitButtonClick() {
-    // const job = axios.get('...')
-    // console.log(job);
+    // if (!jobTitleInput) {
+    //   setError("You must type in a job name.");
+    //   return;
+    // }
+    // if (!companyNameInput) {
+    //   setError("You must type in a  company name.");
 
-    if (!jobTitleInput) {
-      setError("You must type in a job name.");
-      return;
-    }
-    if (!companyNameInput) {
-      setError("You must type in a  company name.");
+    //   alert("You must type in a company name.");
+    //   return;
+    // }
 
-      alert("You must type in a company name.");
-      return;
-    }
+    // if (!locationInput) {
+    //   setError("You must type in a  locationInput.");
 
-    if (!locationInput) {
-      setError("You must type in a  locationInput.");
+    //   alert("You must type inlocationInput.");
+    //   return;
+    // }
+    // if (!descriptionInput) {
+    //   setError("You must type in a  descriptionInput.");
 
-      alert("You must type inlocationInput.");
-      return;
-    }
-    if (!descriptionInput) {
-      setError("You must type in a  descriptionInput.");
+    //   alert("You must type inldescriptionInput.");
+    //   return;
+    // }
+    // if (!emailInput) {
+    //   setError("You must type in a emailInput");
 
-      alert("You must type inldescriptionInput.");
-      return;
-    }
-    if (!emailInput) {
-      setError("You must type in a emailInput");
+    //   alert("You must type emailInput.");
+    //   return;
+    // }
 
-      alert("You must type emailInput.");
-      return;
-    }
-
-    console.log("hello, there", jobTitleInput);
-    console.log("imh is ", img);
+    // console.log("hello, there", jobTitleInput);
+    // console.log("imh is ", img);
     const input = {
       jobTitle: jobTitleInput,
       companyName: companyNameInput,
@@ -64,8 +65,8 @@ export default function Create(props) {
       description: descriptionInput,
       employerEmailContact: emailInput,
       companyWebsite: companyWebsiteInput,
-      createBy: userId, 
-      companyImage:img,
+      createBy: userId,
+      companyImage: img,
     };
 
     axios
@@ -85,18 +86,12 @@ export default function Create(props) {
 
   return (
     <>
-      <h1>This is the page for create a job</h1>
+      <h1>You are trying to create a new job</h1>
       {errorMsg}
-
-      <ImageUpload setImg = {setImg}/>
-      <br />
-
+      {/* 
+      <ImageUpload setImg={setImg} />
+ 
       <form>
-        {/* <label>
-          JobTitle
-          <input type="text" name="jobTitle" />
-        </label> */}
-        {/* <input type="submit" value="Submit" /> */}
         <div>JobTitle</div>
         <input
           type="text"
@@ -147,7 +142,6 @@ export default function Create(props) {
         <CKEditor
           editor={ClassicEditor}
           data=""
-          // data="<p>Type in anything you want!</p>"
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
@@ -157,22 +151,98 @@ export default function Create(props) {
             console.log("done data", { event, editor, data });
             setDescriptionInput(data);
           }}
-          onBlur={(event, editor) => {
-            console.log("Blur.", editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log("Focus.", editor);
-          }}
-        />
+        /> 
 
         <button onClick={onSubmitButtonClick}>Submit</button>
-        {/* <div>company Name: {companyNameInput}</div> */}
       </form>
-      <br />
-      {/* <RichText /> */}
+   */}
 
-      <br />
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Job Title</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter the job title you want to create"
+            value={jobTitleInput}
+            onChange={(e) => {
+              setError(null);
+              setJobTitleInput(e.target.value);
+            }}
+            required
+          />
+        </Form.Group>
 
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Company Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter the company"
+            value={companyNameInput}
+            onChange={(e) => {
+              setError(null);
+              setCompanyNameInput(e.target.value);
+            }}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Company Location</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter the location for this job"
+            value={locationInput}
+            onChange={(e) => {
+              setError(null);
+              setLocationInput(e.target.value);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="reqField">Company Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email for company contacter"
+            value={emailInput}
+            onChange={(e) => {
+              setError(null);
+              setEmailInput(e.target.value);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label>Company Website</Form.Label>
+          <Form.Control type="text" placeholder="Enter the Company website" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label className="reqField">Job Description</Form.Label>
+
+          <CKEditor
+            editor={ClassicEditor}
+            data=""
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log("done data", { event, editor, data });
+              setDescriptionInput(data);
+            }}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label>Upload image for company</Form.Label>
+          <Form.Text className="text-muted">(optional)</Form.Text>
+          <ImageUpload setImg={setImg} />
+        </Form.Group>
+
+        <Button variant="primary" type="submit" onClick={onSubmitButtonClick}>
+          Submit
+        </Button>
+      </Form>
     </>
   );
 }
