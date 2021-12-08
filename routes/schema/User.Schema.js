@@ -1,3 +1,4 @@
+
 const Schema = require('mongoose').Schema;
 
 exports.UserSchema = new Schema({
@@ -5,16 +6,11 @@ exports.UserSchema = new Schema({
         type: String,
         unique: true,
     },
-    password: {
-        type: String,
-    },
+    password: String,
+    jobs:[String],
     favorites: {
         type: Array,
     },
-    jobs: {
-        type: Array,
-    }
-
-}, {
-    collection: 'users'
-})
+    
+// this explicitly declares what collection we're using
+}, { collection : 'users' });

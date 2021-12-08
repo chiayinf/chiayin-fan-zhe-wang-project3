@@ -3,6 +3,11 @@ import './App.css';
 import { useState } from 'react';
 import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function App() {
   const [formInput, setFormInput] = useState('');
@@ -11,8 +16,6 @@ function App() {
   })
   const navigate = useNavigate();
   function onSearchButtonClick() {
-    // const pokemon = axios.get('...')
-    // console.log(pokemon);
 
     axios.get('http://localhost:8000/api/pokemon/find/pikachu')
       .then(response => setPokemon(response.data))
@@ -22,15 +25,34 @@ function App() {
 
   return (
     <div>
-      
+      <div class = "main">
+   
       <h1>
-      name it whatever you please job board
+      Hey! Name the Job you want!
       </h1>
-      <input type='text' value={formInput}
-      onChange={(e) => setFormInput(e.target.value)} />
-      <button onClick={onSearchButtonClick=> navigate('/search')}>
+      {/* <input type='text' placeholder="type keyword in job title" value={formInput}
+      onChange={(e) => setFormInput(e.target.value)} /> */}
+
+<Form>
+        <Form.Group className="mb-3" controlId="formBasicText">
+          <Form.Label ></Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="type keyword in job title for search"
+            value={formInput}
+            onChange={(e) => setFormInput(e.target.value)}
+       
+          />
+        </Form.Group>
+        </Form>
+      <Button
+                    variant="primary" onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
         Search for Jobs
-      </button>
+      </Button>
+
+ </div>
+
+      <br/>
       <button onClick={onSearchButtonClick=> navigate('/create')}>
         Create Jobs
       </button>
@@ -40,12 +62,9 @@ function App() {
       <button onClick={onSearchButtonClick=> navigate('/job')}>
         job
       </button>
-      <div>
-        Pokemon Name: {pokemon.name}
-      </div>
-      <div>
-        Pokemon Health: {pokemon.health}
-      </div>
+      <button onClick={onSearchButtonClick=> navigate('/login')}>
+        LogIn
+      </button>
 
     </div>
  

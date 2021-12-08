@@ -2,18 +2,28 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ImageUpload from "../ImageUpload";
 import RichText from "../RichText";
+import { useParams } from "react-router";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useNavigate } from "react-router-dom";
-import "../style.css";
 
-export default function Create(props) {
+
+export default function Edit(props) {
   const userId = "pc";
+  let jobId = useParams().jobId;
+  // console.log("here", id);
+  if (jobId.length > 0 && jobId[0] === ":") {
+    jobId = jobId.substring(1);
+  }
+
+
+  const [job, setAJob] = useState([]);
+
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
@@ -21,44 +31,66 @@ export default function Create(props) {
   const [emailInput, setEmailInput] = useState("");
   const [companyWebsiteInput, setCompanyWebsiteInput] = useState("");
   const [img, setImg] = useState("");
-  const [errorMsg, setError] = useState(null);
 
   const navigate = useNavigate();
+  function findThatJob() {
+    axios
+      .get("http://localhost:8000/api/jobs/detail/" + jobId)
+      .then((response) => {
+        setAJob(response.data);
+        setJobTitleInput(response.data.jobTitle);
+        setCompanyNameInput(response.data.companyName);
+        setLocationInput(response.data.location);
+        setDescriptionInput(response.data.description);
+        setEmailInput(response.data.employerEmailContact);
+        setCompanyWebsiteInput(response.data.companyWebsite);
+        setImg(response.data.companyImage);
+      })
+      
+      .catch((error) => console.error(error));
+  }
+
+  useEffect(findThatJob, []);
+  
+
+  const [errorMsg, setError] = useState(null);
 
   function onSubmitButtonClick() {
-    // if (!jobTitleInput) {
-    //   setError("You must type in a job name.");
-    //   return;
-    // }
-    // if (!companyNameInput) {
-    //   setError("You must type in a  company name.");
+    // const job = axios.get('...')
+    // console.log(job);
 
-    //   alert("You must type in a company name.");
-    //   return;
-    // }
+    if (!jobTitleInput) {
+      setError("You must type in a job name.");
+      return;
+    }
+    if (!companyNameInput) {
+      setError("You must type in a  company name.");
 
-    // if (!locationInput) {
-    //   setError("You must type in a  locationInput.");
+      alert("You must type in a company name.");
+      return;
+    }
 
-    //   alert("You must type inlocationInput.");
-    //   return;
-    // }
-    // if (!descriptionInput) {
-    //   setError("You must type in a  descriptionInput.");
+    if (!locationInput) {
+      setError("You must type in a  locationInput.");
 
-    //   alert("You must type inldescriptionInput.");
-    //   return;
-    // }
-    // if (!emailInput) {
-    //   setError("You must type in a emailInput");
+      alert("You must type inlocationInput.");
+      return;
+    }
+    if (!descriptionInput) {
+      setError("You must type in a  descriptionInput.");
 
-    //   alert("You must type emailInput.");
-    //   return;
-    // }
+      alert("You must type inldescriptionInput.");
+      return;
+    }
+    if (!emailInput) {
+      setError("You must type in a emailInput");
 
-    // console.log("hello, there", jobTitleInput);
-    // console.log("imh is ", img);
+      alert("You must type emailInput.");
+      return;
+    }
+
     const input = {
+        _id:jobId,
       jobTitle: jobTitleInput,
       companyName: companyNameInput,
       location: locationInput,
@@ -69,28 +101,30 @@ export default function Create(props) {
       companyImage: img,
     };
 
+     const api = "http://localhost:8000/api/jobs/detail/" + jobId;
     axios
-      .post("http://localhost:8000/api/jobs/createNewJob", input)
+      .put(api, input)
       .then((response) => {
         console.log("done");
-        alert("create succeed");
-        navigate("/job");
+        alert("update succeed");
+        navigate("/job/detail/:"+jobId);
       })
       .catch((error) => {
         console.log("fial", error);
         setError(error);
-        alert("create fail");
+        alert("update  fail");
       });
     //debugger;
   }
 
   return (
     <>
-      <h1>You are trying to create a new job</h1>
-      {errorMsg}
-      {/* 
-      <ImageUpload setImg={setImg} />
- 
+      <h1>Your are in the Editing mode for job {jobTitleInput}</h1>
+     
+
+      {/* <ImageUpload setImg={setImg} />
+      <br />
+
       <form>
         <div>JobTitle</div>
         <input
@@ -141,7 +175,8 @@ export default function Create(props) {
         <div>Fill in Job description</div>
         <CKEditor
           editor={ClassicEditor}
-          data=""
+          data={descriptionInput}
+          // data="<p>Type in anything you want!</p>"
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
@@ -151,11 +186,18 @@ export default function Create(props) {
             console.log("done data", { event, editor, data });
             setDescriptionInput(data);
           }}
-        /> 
+          onBlur={(event, editor) => {
+            console.log("Blur.", editor);
+          }}
+          onFocus={(event, editor) => {
+            console.log("Focus.", editor);
+          }}
+        />
 
         <button onClick={onSubmitButtonClick}>Submit</button>
       </form>
-   */}
+      <br />
+ */}
 
       <Form>
         <Form.Group className="mb-3" controlId="formBasicText">
@@ -220,7 +262,7 @@ export default function Create(props) {
 
           <CKEditor
             editor={ClassicEditor}
-            data=""
+            data={descriptionInput}
             onReady={(editor) => {
               // You can store the "editor" and use when it is needed.
               console.log("Editor is ready to use!", editor);
@@ -234,7 +276,7 @@ export default function Create(props) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label>Upload image for company</Form.Label>
+          <Form.Label>Upload New image for company</Form.Label>
           <Form.Text className="text-muted">(optional)</Form.Text>
           <ImageUpload setImg={setImg} />
         </Form.Group>
@@ -243,6 +285,8 @@ export default function Create(props) {
           Submit
         </Button>
       </Form>
+
+      <br />
     </>
   );
 }
