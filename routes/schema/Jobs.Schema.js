@@ -20,10 +20,6 @@ exports.JobSchema = new Schema({
     companyWebsite: {
         type: String,
     },
-    status: {
-        type: String,
-        default: "saved"
-    },
     createBy: {
         type: String,
          default: "pc"

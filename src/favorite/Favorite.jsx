@@ -8,9 +8,24 @@ export default function Job() {
     const [allJobs, setAllJobs] = useState([]);
 
     const userId = "pc";
+
+    function cmp(a,b){
+        const mp = {
+            "Not Started":1,
+            "Applied":2,
+            "Interview Scheduled":3,
+            "Accepted":4,
+            "Rejected":5,
+        }
+        return mp[a["status"]]-mp[b["status"]];
+    }
+
     function findAllJobs() {
         axios.get("http://localhost:8000/api/favs/"+userId)
-            .then(response => {                
+            .then(response => {    
+                response.data.sort(
+                    cmp
+                );
                 setAllJobs(response.data)
             })
             .catch(error => console.error(error));
@@ -24,6 +39,7 @@ export default function Job() {
         return (
         <>
         <p></p>
+         <div>job Status: {job.status}</div>
         <Link to={"detail/:" + job.jobId}>{job.jobTitle}, {job.location}, {job.companyName}</Link>
         
         </>

@@ -6,17 +6,19 @@ import { useNavigate } from "react-router-dom";
 
 export default function (props) {
   let id = useParams().jobId;
-  console.log("here", id);
+  // console.log("here", id);
   if (id.length > 0 && id[0] === ":") {
     id = id.substring(1);
   }
   const userId = "pc";
-  console.log("id front is", id);
+  // console.log("id front is", id);
   const [fav, setFav] = useState("unFav");
-  const [jobSt, setSt] = useState("");
-  findFavStatus(userId, id, setFav, setSt);
-  console.log("fav", fav);
+  const [jobSt, setJobSt] = useState("Not Started");
+  const [curJobSt, setCurJobSt] = useState("");
+  findFavStatus(userId, id, setFav,  setCurJobSt);
+  // console.log("fav", fav);
   const [job, setAJob] = useState([]);
+
 
   const navigate = useNavigate();
   function findThatJob() {
@@ -29,7 +31,7 @@ export default function (props) {
   }
 
   useEffect(findThatJob, []);
-  console.log("jobs are", job.jobTitle);
+  // console.log("jobs are", job.jobTitle);
 
   function onDeleteClick() {
     axios
@@ -45,6 +47,9 @@ export default function (props) {
       });
   }
 
+
+
+  
   function favClick() {
     console.log("sryff", fav);
     if (fav === "unFav") {
@@ -64,7 +69,7 @@ export default function (props) {
           console.log(response.data);
           alert("fav succeed");
           setFav("fav");
-          setSt(response.data["status"]);
+          setJobSt(response.data["status"]);
         })
         .catch((error) => {
           console.log("fav ", error);
@@ -86,8 +91,26 @@ export default function (props) {
         });
     }
   }
-  console.log("jcc", job);
-  console.log(typeof job.companyImage);
+  
+  function onListen(e){
+    setJobSt(e.target.value);
+    console.log("cgx", e.target.value);
+  }
+
+  function statusChangeClick(e) {
+    console.log("cs", jobSt);
+    const favId = userId + "_" + id;
+    const api = "http://localhost:8000/api/favs/" + favId;
+    axios
+      .put(api, {status: jobSt})
+      .then((response) => {
+        alert("update st succeed");
+      })
+      .catch((error) => {
+        alert("st st fail");
+      });
+  }
+
   const jobComponent = job ? (
     <>
       <div>job Name: {job.jobTitle}</div>
@@ -100,10 +123,9 @@ export default function (props) {
       <div>Employer email contact: {job.employerEmailContact}</div>
       <div>CompanyWebsite: {job.companyWebsite}</div>
       <div>Posting date: {job.postingDate}</div>
-      <div>Action status: {job.status}</div>
       <div>
         Image:
-        <img src={job.companyImage} ></img>
+        <img src={job.companyImage}></img>
       </div>
     </>
   ) : (
@@ -113,15 +135,21 @@ export default function (props) {
   const jobStComponent =
     fav === "fav" ? (
       <>
-        <div> currApplyStatus: {jobSt}</div>
-        <label for="jstatus">Change your status:</label>
-        <select name="jstatus" id="jstatus">
-          <option value="Not started">Not started</option>
+        <div> currApplyStatus: {curJobSt}</div>
+        {/* <label for="jstatus">Change your status:</label> */}
+        <select 
+        //val = {jobSt}   
+               onChange={ 
+                onListen
+         }
+          >
+          <option value="Not Started">Not Started</option>
           <option value="Applied">Applied</option>
-          <option value="Interview scheduled">Interview scheduled</option>
+          <option value="Interview Scheduled">Interview Scheduled</option>
           <option value="Accepted">Accepted</option>
           <option value="Rejected">Rejected</option>
         </select>
+        <button onClick={statusChangeClick}>Submit Status Change</button>
       </>
     ) : (
       <div> make it Fav to change job Status </div>

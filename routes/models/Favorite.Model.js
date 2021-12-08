@@ -21,7 +21,7 @@ function deleteFavById(id) {
 
 function updateStatusById(id, st) {
     console.log("update for id is ", id, st);
-    return FavModel.findOneAndUpdate(id, { status: st }).exec();
+    return FavModel.findOneAndUpdate({id:id}, { status: st }).exec();
 }
 
 function findFavById(id) {
