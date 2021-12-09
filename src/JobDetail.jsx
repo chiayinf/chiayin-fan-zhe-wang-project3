@@ -187,6 +187,7 @@ export default function (props) {
     <>
       <Button onClick={favClick}>Favorite {getHeart(fav)}</Button>
       {/* <div> fav St: {fav}</div> */}
+      {jobStComponent}
     </>
   ) : (
     <div> Log in to unlock more functions! </div>
@@ -206,6 +207,7 @@ export default function (props) {
       {favComponent}
       {jobComponent}
       {editComponent}
+     
       {/* <Button onClick={favClick}>Favorite {getHeart(fav)}</Button> */}
     </>
   );

@@ -27,35 +27,35 @@ export default function Create(props) {
   const navigate = useNavigate();
 
   function onSubmitButtonClick() {
-    // if (!jobTitleInput) {
-    //   setError("You must type in a job name.");
-    //   return;
-    // }
-    // if (!companyNameInput) {
-    //   setError("You must type in a  company name.");
+    if (!jobTitleInput) {
+      setError("You must type in a job name.");
+      return;
+    }
+    if (!companyNameInput) {
+      setError("You must type in a  company name.");
 
-    //   alert("You must type in a company name.");
-    //   return;
-    // }
+      alert("You must type in a company name.");
+      return;
+    }
 
-    // if (!locationInput) {
-    //   setError("You must type in a  locationInput.");
+    if (!locationInput) {
+      setError("You must type in a  locationInput.");
 
-    //   alert("You must type inlocationInput.");
-    //   return;
-    // }
-    // if (!descriptionInput) {
-    //   setError("You must type in a  descriptionInput.");
+      alert("You must type inlocationInput.");
+      return;
+    }
+    if (!descriptionInput) {
+      setError("You must type in a  descriptionInput.");
 
-    //   alert("You must type inldescriptionInput.");
-    //   return;
-    // }
-    // if (!emailInput) {
-    //   setError("You must type in a emailInput");
+      alert("You must type inldescriptionInput.");
+      return;
+    }
+    if (!emailInput) {
+      setError("You must type in a emailInput");
 
-    //   alert("You must type emailInput.");
-    //   return;
-    // }
+      alert("You must type emailInput.");
+      return;
+    }
 
     // console.log("hello, there", jobTitleInput);
     // console.log("imh is ", img);
@@ -78,6 +78,7 @@ export default function Create(props) {
       })
       .catch((error) => {
         console.log("fail", error);
+        setError(error);
         alert("create fail");
       });
     //debugger;
