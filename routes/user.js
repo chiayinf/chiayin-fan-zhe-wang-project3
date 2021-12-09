@@ -4,6 +4,7 @@ const router = express.Router();
 const UserModel = require('./models/User.Model');
 const jwt = require('jsonwebtoken');
 const auth_middleware = require('./auth_middleware.js')
+const bcrypt = require("bcryptjs");
 
 // Returns all known user
 // http://localhost:8000/api/users/findAll
@@ -105,6 +106,8 @@ router.post('/authenticate', function(request, response) {
 
 })
 
+
+
   // http://localhost:8000/api/users/insertUser
   // Headers
   // Content-Type application/json
@@ -117,7 +120,7 @@ router.post('/insertUser', function(req, res) {
     if (!username || !password) {
         return res.status(422).send("Missing username: " + username + "or password:" + password)
     }
-
+    password = bcrypt.hashSync(req.body.password, 10)
     UserModel.findUserByUsername(username)
         .then(userResponse => {
             if (userResponse) {
@@ -132,23 +135,20 @@ router.post('/insertUser', function(req, res) {
         }) 
 });
 
-router.post('/', function(req, res) {
-    const { username, password } = req.body;
-    // const username = req.body.username
-    // const password = req.body.password
-    if (!username || !password) {
-        return res.status(422).send("Missing username: " + username + "or password:" + password)
+
+
+router.post('/', (req, res) => {
+    if(!req.body.username || !req.body.password) {
+        return res.status(404).send({message: "Must include username AND password"});
     }
+    // HERE: we are  replacing the password.  We can make the salt (the 10) 
+    // more complex, but this is fine in our case
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
 
-    return UserModel.insertUser({username, password})
-        .then((userResponse) => {
-                return res.status(200).send(userResponse);
-
-        })
-        .catch(error => res.status(400).send(error))
-
+    return UserModel.addUser(req.body)
+        .then((success) => res.send(200).send(success),
+            error => res.send(500).send(error));
 });
-
 
 router.post('/insertCreatedJobByUser/:username/:jobId', function (req, res) {
     return UserModel.insertCreatedJobByUser(req.params.username, req.params.jobId)
@@ -158,11 +158,7 @@ router.post('/insertCreatedJobByUser/:username/:jobId', function (req, res) {
         .catch(error => res.status(400).send(error))
 })
 
-router.post("/logout&", function(req, res) {
-    req.session.destroy;
-    res.send("Logged out");
 
-})
 
 router.post('/logout', function (req, res) {
     req.session.destroy();
