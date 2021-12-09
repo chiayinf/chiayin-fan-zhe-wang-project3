@@ -15,7 +15,6 @@ import "../style.css";
 
 export default function Create(props) {
 
-  const userId = "pc";
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
@@ -67,12 +66,11 @@ export default function Create(props) {
       description: descriptionInput,
       employerEmailContact: emailInput,
       companyWebsite: companyWebsiteInput,
-      createBy: userId,
       companyImage: img,
     };
 
     axios
-      .post("http://localhost:8000/api/jobs/createNewJob", input)
+      .post("/api/jobs/createNewJob", input)
       .then((response) => {
         console.log("done");
         alert("create succeed");

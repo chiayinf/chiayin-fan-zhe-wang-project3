@@ -37,13 +37,13 @@ export default function CustNav() {
                 <Nav.Link href="/">Home Page</Nav.Link>
                 <Nav.Link href="/favorite">Favorite Jobs</Nav.Link>
                 <Nav.Link href="/create">Create New Job</Nav.Link>
+                <Nav.Link href="/job">Check All jobs</Nav.Link>
               </Nav>
               <button
                 onClick={() => {
                   axios
                     .post("/api/users/logout")
                     .then((response) => {
-                      console.log(response,"x");
                     })
                     .catch((error) => console.log(error));
                   setUser({
@@ -70,6 +70,7 @@ export default function CustNav() {
                 <Nav.Link href="/">Home Page</Nav.Link>
                 <Nav.Link href="/login">LogIn</Nav.Link>
                 <Nav.Link href="/register">Sign up</Nav.Link>
+                <Nav.Link href="/job">Check All jobs</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

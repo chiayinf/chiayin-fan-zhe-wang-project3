@@ -56,14 +56,17 @@ router.get('/detail/:jobId', (request, response) => {
     )
 })
 
-router.post('/createNewJob', function (req, res) {
+router.post('/createNewJob',auth_middleware, function (req, res) {
   console.log("passed", req.body);
-  const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
-  if (!jobTitle) {
-    return res.status(422).send("Missing jobTitle: " + jobTitle)
-  }
+  const form = req.body;
 
-  return JobModel.insertJob({ jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage })
+  //const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
+  form.createBy = req.username;
+  // if (!jobTitle) {
+  //   return res.status(422).send("Missing jobTitle: " + jobTitle)
+  // }
+  console.log("inser", form);
+  return JobModel.insertJob(form)
     .then((jobResponse) => {
       return res.status(200).send(jobResponse);
 

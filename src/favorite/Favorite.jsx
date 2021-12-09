@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 export default function Job() {
     const [allJobs, setAllJobs] = useState([]);
 
-    const userId = "pc";
+    //const userId = "pc";
 
     function cmp(a,b){
         const mp = {
@@ -22,7 +22,7 @@ export default function Job() {
     }
 
     function findAllJobs() {
-        axios.get("http://localhost:8000/api/favs/"+userId)
+        axios.get("/api/favs/")
             .then(response => {    
                 response.data.sort(
                     cmp

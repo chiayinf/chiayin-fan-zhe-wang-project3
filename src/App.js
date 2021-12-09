@@ -51,7 +51,7 @@ function App() {
       </Button>
 
  </div>
-
+{/* 
       <br/>
       <button onClick={onSearchButtonClick=> navigate('/create')}>
         Create Jobs
@@ -64,7 +64,7 @@ function App() {
       </button>
       <button onClick={onSearchButtonClick=> navigate('/login')}>
         LogIn
-      </button>
+      </button> */}
 
     </div>
  

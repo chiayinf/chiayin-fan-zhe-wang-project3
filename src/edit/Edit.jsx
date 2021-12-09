@@ -14,9 +14,7 @@ import Button from "react-bootstrap/Button";
 
 
 export default function Edit(props) {
-  const userId = "pc";
   let jobId = useParams().jobId;
-  // console.log("here", id);
   if (jobId.length > 0 && jobId[0] === ":") {
     jobId = jobId.substring(1);
   }
@@ -97,7 +95,6 @@ export default function Edit(props) {
       description: descriptionInput,
       employerEmailContact: emailInput,
       companyWebsite: companyWebsiteInput,
-      createBy: userId,
       companyImage: img,
     };
 
