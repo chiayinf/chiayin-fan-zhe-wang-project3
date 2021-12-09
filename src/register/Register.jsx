@@ -33,10 +33,10 @@ export default (props) =>{
 
             <button
                 onClick={() => {
-                    axios.post('/api/user/insertUser', userData)
+                    axios.post('/api/users/insertUser', userData)
                         .then(response => {
                             console.log(response);
-                            axios.post('/api/user/authenticate', userData)
+                            axios.post('/api/users/authenticate', userData)
                                 .then(authResponse => {
                                     console.log(authResponse);
                                     window.location.replace("/");

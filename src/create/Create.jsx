@@ -12,7 +12,9 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate } from "react-router-dom";
 import "../style.css";
 
+
 export default function Create(props) {
+
   const userId = "pc";
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
@@ -77,8 +79,7 @@ export default function Create(props) {
         navigate("/job");
       })
       .catch((error) => {
-        console.log("fial", error);
-        setError(error);
+        console.log("fail", error);
         alert("create fail");
       });
     //debugger;
@@ -182,6 +183,7 @@ export default function Create(props) {
               setError(null);
               setCompanyNameInput(e.target.value);
             }}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicText">
@@ -194,6 +196,7 @@ export default function Create(props) {
               setError(null);
               setLocationInput(e.target.value);
             }}
+            required
           />
         </Form.Group>
 
@@ -207,6 +210,7 @@ export default function Create(props) {
               setError(null);
               setEmailInput(e.target.value);
             }}
+            required
           />
         </Form.Group>
 

@@ -19,7 +19,7 @@ router.get('/findAll', function(request, response) {
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
     const username = request.session.username;
     return response.send(username);
-})
+}) 
 
 router.get('/whoIsAlsoLoggedIn', function(request, response) {
     const username = request.username;
@@ -90,6 +90,7 @@ router.post('/authenticate', function(request, response) {
 
     return UserModel.findUserByUsername(username)
         .then((userResponse) => {
+            console.log("us", userResponse);
             if (!userResponse) {
                 return response.status(404).send("No user found with that username");
             }
@@ -109,6 +110,7 @@ router.post('/authenticate', function(request, response) {
   // Content-Type application/json
 
 router.post('/insertUser', function(req, res) {
+    console.log("req", req.body);
     const { username, password } = req.body;
     // const username = req.body.username
     // const password = req.body.password
@@ -156,8 +158,13 @@ router.post('/insertCreatedJobByUser/:username/:jobId', function (req, res) {
         .catch(error => res.status(400).send(error))
 })
 
+router.post("/logout&", function(req, res) {
+    req.session.destroy;
+    res.send("Logged out");
 
-router.post('/logut', function (req, res) {
+})
+
+router.delete('/logut', function (req, res) {
     req.session.destroy();
     return res.status(200).send(req.session);
 })
