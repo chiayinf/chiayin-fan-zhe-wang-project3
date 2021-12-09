@@ -164,7 +164,7 @@ router.post("/logout&", function(req, res) {
 
 })
 
-router.delete('/logut', function (req, res) {
+router.post('/logout', function (req, res) {
     req.session.destroy();
     return res.status(200).send(req.session);
 })

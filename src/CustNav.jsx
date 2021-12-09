@@ -9,8 +9,6 @@ export default function CustNav() {
     username: "",
   });
 
-  const [loggedInName, setLoggedInName] = useState("");
-
   function whoIsLoggedIn() {
     console.log("check");
     axios
@@ -20,8 +18,8 @@ export default function CustNav() {
           ...user,
           username: response.data,
         });
-        setLoggedInName(response.data);
-        console.log("test2", user);
+
+        console.log("test2", response.data);
       })
       .catch((error) => console.error(error));
   }
@@ -43,9 +41,9 @@ export default function CustNav() {
               <button
                 onClick={() => {
                   axios
-                    .delete("/api/users/logout")
+                    .post("/api/users/logout")
                     .then((response) => {
-                      console.log(response);
+                      console.log(response,"x");
                     })
                     .catch((error) => console.log(error));
                   setUser({
