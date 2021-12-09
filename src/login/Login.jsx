@@ -33,12 +33,11 @@ export default (props) =>{
             <button
                 onClick={() => {
                     axios.post('/api/users/authenticate', userData)
-                        .then(response => console.log(response))
-                        /*
+                        
                         .then(response => {
                             console.log(response);
                             window.location.replace("/");
-                        })*/
+                        })
                         .catch(error => {
                             console.log(error);
                             alert("Please enter the correct username or password!")

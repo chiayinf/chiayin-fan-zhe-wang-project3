@@ -5,22 +5,30 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 export default function CustNav() {
-    const [username, setUsername] = useState({
-        password: '',
+    const [user, setUser] = useState({
         username: '',
     })
 
+    const [loggedInName, setLoggedInName] = useState('');
+
     function whoIsLoggedIn() {
-        axios.get('/api/user/whoIsLoggedIn')
+        console.log('check')
+        axios.get('/api/users/whoIsLoggedIn')
             .then(response => {
-                setUsername(response.data);
+                setUser(response.data);
+                setLoggedInName((response.data))
+                console.log(response.data, 'test2')
+
             })
             .catch(error => console.error(error));
     }
-    useEffect(whoIsLoggedIn, []);
+    useEffect(whoIsLoggedIn, 
+        {...user,
+        });
+    console.log('username', user.username)
+    
 
-
-    if (!username) {
+    if (user.username) {
         return (
             <>
             <Navbar bg="light" expand="lg">
@@ -34,12 +42,14 @@ export default function CustNav() {
                         </Nav>
                         <button
                             onClick={() => {
-                                axios.delete('/api/user/logout')
+                                axios.delete('/api/users/logout')
                                     .then(response => {
                                         console.log(response);
                                     })
                                     .catch(error => console.log(error));
-                                setUsername('');
+                                setUser({ 
+                                    username: '',
+                                });
                                 window.location.replace("/");
                             }}
                         >Logout</button>

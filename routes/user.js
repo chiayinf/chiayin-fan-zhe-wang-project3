@@ -84,7 +84,6 @@ router.get('/:username', (request, response) => {
 
 router.post('/authenticate', function(request, response) {
     let { username, password } = request.body;
-    password = JSON.stringify(password);
     if (!username || !password) {
         return response.status(422).send('Must include both password and username');
     }
@@ -157,13 +156,8 @@ router.post('/insertCreatedJobByUser/:username/:jobId', function (req, res) {
         .catch(error => res.status(400).send(error))
 })
 
-router.post("/logout&", function(req, res) {
-    req.session.destroy;
-    res.send("Logged out");
 
-})
-
-router.delete('/logut', function (req, res) {
+router.post('/logut', function (req, res) {
     req.session.destroy();
     return res.status(200).send(req.session);
 })
