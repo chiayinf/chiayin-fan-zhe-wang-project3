@@ -59,14 +59,14 @@ export default function Job() {
       <>
         <p></p>
         <div>Job Status: {job.status}</div>
-        <Link to={"detail/:" + job.jobId}><div>Sorry the job is not valid anymore, unfav to remove it</div></Link>
+        <Link to={"detail/:" + job.jobId}><div>Sorry this job is not valid anymore, unfavorite to remove it</div></Link>
       </>
     ) : (
       <>
         <p></p>
         <div>Job Status: {job.status}</div>
         <Link to={"detail/:" + job.jobId}>
-          {job.jobTitle}, {job.location}, {job.companyName}
+        Title: {job.jobTitle}, Location: {job.location}, Company:{job.companyName}
         </Link>
       </>
     );
