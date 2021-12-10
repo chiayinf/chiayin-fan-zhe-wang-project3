@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import "../style.css";
 
 export default function Create(props) {
-  const userId = "pc";
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
@@ -21,43 +20,10 @@ export default function Create(props) {
   const [emailInput, setEmailInput] = useState("");
   const [companyWebsiteInput, setCompanyWebsiteInput] = useState("");
   const [img, setImg] = useState("");
-  const [errorMsg, setError] = useState(null);
 
   const navigate = useNavigate();
 
   function onSubmitButtonClick() {
-    // if (!jobTitleInput) {
-    //   setError("You must type in a job name.");
-    //   return;
-    // }
-    // if (!companyNameInput) {
-    //   setError("You must type in a  company name.");
-
-    //   alert("You must type in a company name.");
-    //   return;
-    // }
-
-    // if (!locationInput) {
-    //   setError("You must type in a  locationInput.");
-
-    //   alert("You must type inlocationInput.");
-    //   return;
-    // }
-    // if (!descriptionInput) {
-    //   setError("You must type in a  descriptionInput.");
-
-    //   alert("You must type inldescriptionInput.");
-    //   return;
-    // }
-    // if (!emailInput) {
-    //   setError("You must type in a emailInput");
-
-    //   alert("You must type emailInput.");
-    //   return;
-    // }
-
-    // console.log("hello, there", jobTitleInput);
-    // console.log("imh is ", img);
     const input = {
       jobTitle: jobTitleInput,
       companyName: companyNameInput,
@@ -65,98 +31,30 @@ export default function Create(props) {
       description: descriptionInput,
       employerEmailContact: emailInput,
       companyWebsite: companyWebsiteInput,
-      createBy: userId,
       companyImage: img,
     };
-
+    const errorMsg = validateForm(input);
+    if (errorMsg) {
+      alert(errorMsg);
+      return errorMsg;
+    }
     axios
-      .post("http://localhost:8000/api/jobs/createNewJob", input)
-      .then((response) => {
-        console.log("done");
+      .post("/api/jobs/createNewJob", input)
+      .then((res) => {
+        console.log("done", res);
         alert("create succeed");
         navigate("/job");
       })
       .catch((error) => {
-        console.log("fial", error);
-        setError(error);
+        console.log("fail", error);
+
         alert("create fail");
       });
-    //debugger;
   }
 
   return (
     <>
       <h1>You are trying to create a new job</h1>
-      {errorMsg}
-      {/* 
-      <ImageUpload setImg={setImg} />
- 
-      <form>
-        <div>JobTitle</div>
-        <input
-          type="text"
-          value={jobTitleInput}
-          onChange={(e) => {
-            setError(null);
-            setJobTitleInput(e.target.value);
-          }}
-        />
-        <div>Company Name</div>
-        <input
-          type="text"
-          value={companyNameInput}
-          onChange={(e) => {
-            setError(null);
-            setCompanyNameInput(e.target.value);
-          }}
-        />
-        <div>Company Location</div>
-        <input
-          type="text"
-          value={locationInput}
-          onChange={(e) => {
-            setError(null);
-            setLocationInput(e.target.value);
-          }}
-        />
-        <div>Company Email</div>
-        <input
-          type="email"
-          value={emailInput}
-          onChange={(e) => {
-            setError(null);
-            setEmailInput(e.target.value);
-          }}
-        />
-        <div>Company Website</div>
-        <input
-          type="text"
-          value={companyWebsiteInput}
-          onChange={(e) => {
-            setError(null);
-            setCompanyWebsiteInput(e.target.value);
-          }}
-        />
-
-        <div>Fill in Job description</div>
-        <CKEditor
-          editor={ClassicEditor}
-          data=""
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            console.log("done data", { event, editor, data });
-            setDescriptionInput(data);
-          }}
-        /> 
-
-        <button onClick={onSubmitButtonClick}>Submit</button>
-      </form>
-   */}
-
       <Form>
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label className="reqField">Job Title</Form.Label>
@@ -165,7 +63,6 @@ export default function Create(props) {
             placeholder="Enter the job title you want to create"
             value={jobTitleInput}
             onChange={(e) => {
-              setError(null);
               setJobTitleInput(e.target.value);
             }}
             required
@@ -179,9 +76,9 @@ export default function Create(props) {
             placeholder="Enter the company"
             value={companyNameInput}
             onChange={(e) => {
-              setError(null);
               setCompanyNameInput(e.target.value);
             }}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicText">
@@ -191,9 +88,9 @@ export default function Create(props) {
             placeholder="Enter the location for this job"
             value={locationInput}
             onChange={(e) => {
-              setError(null);
               setLocationInput(e.target.value);
             }}
+            required
           />
         </Form.Group>
 
@@ -204,15 +101,23 @@ export default function Create(props) {
             placeholder="Enter email for company contacter"
             value={emailInput}
             onChange={(e) => {
-              setError(null);
               setEmailInput(e.target.value);
             }}
+            required
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Company Website</Form.Label>
-          <Form.Control type="text" placeholder="Enter the Company website" />
+          <Form.Control
+            type="text"
+            placeholder="Enter the Company website"
+            value={companyWebsiteInput}
+            onChange={(e) => {
+              setCompanyWebsiteInput(e.target.value);
+            }}
+            required
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicText">
@@ -221,13 +126,9 @@ export default function Create(props) {
           <CKEditor
             editor={ClassicEditor}
             data=""
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log("Editor is ready to use!", editor);
-            }}
+            onReady={(editor) => {}}
             onChange={(event, editor) => {
               const data = editor.getData();
-              console.log("done data", { event, editor, data });
               setDescriptionInput(data);
             }}
           />
@@ -245,4 +146,24 @@ export default function Create(props) {
       </Form>
     </>
   );
+}
+
+
+export function validateForm(form) {
+  if (!form.jobTitle) {
+    return "You must type in a job name.";
+  }
+  if (!form.companyName) {
+    return "You must type in a company name.";
+  }
+  if (!form.location) {
+    return "You must type in location.";
+  }
+  if (!form.description) {
+    return "You must type in description.";
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.employerEmailContact)) {
+    return "You must type in an valid email";
+  }
+  return null;
 }

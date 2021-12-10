@@ -28,7 +28,7 @@ function App() {
       <div class = "main">
    
       <h1>
-      Hey! Name the Job you want!
+      Still Jobs!
       </h1>
       {/* <input type='text' placeholder="type keyword in job title" value={formInput}
       onChange={(e) => setFormInput(e.target.value)} /> */}
@@ -51,7 +51,7 @@ function App() {
       </Button>
 
  </div>
-
+{/* 
       <br/>
       <button onClick={onSearchButtonClick=> navigate('/create')}>
         Create Jobs
@@ -64,7 +64,7 @@ function App() {
       </button>
       <button onClick={onSearchButtonClick=> navigate('/login')}>
         LogIn
-      </button>
+      </button> */}
 
     </div>
  

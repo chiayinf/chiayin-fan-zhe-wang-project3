@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Login from './login/Login';
+import Register from './register/Register';
 import Search from './search/Search';
 import Job from './job/Job';
 import Favorite from './favorite/Favorite';
@@ -11,12 +12,16 @@ import Create from './create/Create';
 import JobDetail from './JobDetail';
 import reportWebVitals from './reportWebVitals';
 import Edit from './edit/Edit';
+import Navbar from './CustNav.jsx';
+
 
 ReactDOM.render(
   <Router >
+    <Navbar />
     <Routes>
       <Route exact path="/" element={<App />} />
       <Route exact path="/login" element={<Login />} />
+      <Route exact path="/register" element={<Register />} />
       <Route exact path="/search" element={<Search />} />
       <Route exact path="/job" element={<Job />} />
       <Route exact path="/favorite" element={<Favorite />} />

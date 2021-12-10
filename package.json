@@ -1,5 +1,5 @@
 {
-  "name": "hunter_fall2021_cs5610_mod3",
+  "name": "chiayin-fan-zhe-wang-project3",
   "proxy": "http://localhost:8000",
   "version": "0.1.0",
   "private": true,
@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.7.2",
     "concurrently": "^6.4.0",
@@ -32,7 +33,7 @@
   },
   "scripts": {
     "devst": "concurrently \"nodemon ./server.js\" \"react-scripts start\"",
-    "start": "react-scripts start",
+    "start": "node ./server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

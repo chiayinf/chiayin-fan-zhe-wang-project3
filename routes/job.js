@@ -35,14 +35,13 @@ router.get('/:jobTitle', (request, response) => {
 
 router.get('/detail/:jobId', (request, response) => {
   const jobId = request.params.jobId;
-  console.log("job is ", jobId);
   if (!jobId) {
     return response.status(422).send("Missing Id");
   }
 
   return JobModel.findJobByJobId(jobId)
     .then((jobResponse) => {
-      console.log("res", jobResponse);
+      //console.log("res for jbid", jobId, jobResponse);
       // if(!jobResponse) {
       //     response.status(404).send("Job not found");
       // }
@@ -56,25 +55,26 @@ router.get('/detail/:jobId', (request, response) => {
     )
 })
 
-router.post('/createNewJob', function (req, res) {
-  console.log("passed", req.body);
-  const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
-  if (!jobTitle) {
-    return res.status(422).send("Missing jobTitle: " + jobTitle)
+router.post('/createNewJob',auth_middleware, async function (req, res) {
+  const form = req.body;
+
+  //const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
+  form.createBy = req.username;
+  // if (!jobTitle) {
+  //   return res.status(422).send("Missing jobTitle: " + jobTitle)
+  // }
+  try {
+    const jobResponse = await JobModel.insertJob(form);
+    console.log("res", jobResponse);
+    return res.status(200).send(jobResponse);
+  } catch (error) {
+    return res.status(400).send(error);
   }
-
-  return JobModel.insertJob({ jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage })
-    .then((jobResponse) => {
-      return res.status(200).send(jobResponse);
-
-    })
-    .catch(error => res.status(400).send(error))
 
 });
 
 
 router.put('/detail/:jobId', function (req, res) {
-  console.log("passed", req.body);
   const jobId = req.params.jobId;
   const { _id,jobTitle, companyName, location, description, employerEmailContact, companyWebsite, companyImage } = req.body;
   if (!jobId) {
@@ -83,6 +83,8 @@ router.put('/detail/:jobId', function (req, res) {
 
   return JobModel.updateJobByJobId(jobId, req.body)
     .then((jobResponse) => {
+      console.log("res", jobResponse);
+      debugger;
       return res.status(200).send(jobResponse);
 
     })

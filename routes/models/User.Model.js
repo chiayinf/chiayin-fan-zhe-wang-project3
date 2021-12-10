@@ -13,12 +13,28 @@ function getAllUsers() {
 
 function findUserByUsername(username) {
     return UserModel.findOne({username}).exec();
-    // { username: username }
 }
+
+function getAllCreatedJobsByUser(username) {
+    return UserModel.findOne({username},'created').exec();
+}
+
+function insertCreatedJobByUser(username, jobId) {
+    return UserModel.findOneAndUpdate({username},{ $addToSet: { created: jobId }});
+}
+
+function deleteCreatedJobByUser(username, jobId) {
+    return UserModel.findOneAndUpdate({username},{ $pull: { created: jobId } });
+}
+
+
 
 // Make sure to export a function after you create it!
 module.exports = {
     insertUser,
+    insertCreatedJobByUser,
     getAllUsers,
+    getAllCreatedJobsByUser,
     findUserByUsername,
+    deleteCreatedJobByUser,
 };

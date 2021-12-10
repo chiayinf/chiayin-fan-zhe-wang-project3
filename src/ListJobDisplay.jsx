@@ -16,8 +16,7 @@ export default function ListJobDisplay(props) {
             </Link> */}
         <p></p>
         <ListGroup.Item as="li">
-          Title: {job.jobTitle}, Location: {job.location}, Company:{" "}
-          {job.companyName}
+          Title: {job.jobTitle}, Location: {job.location}, Company:{job.companyName}
           <br />
           <Link to={"detail/:" + job._id}>check detail...</Link>
         </ListGroup.Item>
