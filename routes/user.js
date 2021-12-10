@@ -114,7 +114,7 @@ router.post('/authenticate', function(request, response) {
 
 router.post('/insertUser', function(req, res) {
     console.log("req", req.body);
-    const { username, password } = req.body;
+    let { username, password } = req.body;
     // const username = req.body.username
     // const password = req.body.password
     if (!username || !password) {
@@ -128,7 +128,7 @@ router.post('/insertUser', function(req, res) {
             } else {
                 return UserModel.insertUser({username, password})
                     .then((userResponse) => {
-                        return res.status(200).send(userResponse, 'create a');
+                        return res.status(200).send(userResponse);
                     })
                     .catch(error => res.status(400).send(error))
             }
