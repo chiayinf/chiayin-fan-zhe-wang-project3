@@ -20,39 +20,10 @@ export default function Create(props) {
   const [emailInput, setEmailInput] = useState("");
   const [companyWebsiteInput, setCompanyWebsiteInput] = useState("");
   const [img, setImg] = useState("");
-  const [errorMsg, setError] = useState(null);
 
   const navigate = useNavigate();
 
   function onSubmitButtonClick() {
-    if (!jobTitleInput) {
-      alert("You must type in a job name.");
-      return;
-    }
-    if (!companyNameInput) {
-
-      alert("You must type in a company name.");
-      return;
-    }
-
-    if (!locationInput) {
-
-      alert("You must type inlocationInput.");
-      return;
-    }
-    if (!descriptionInput) {
-
-      alert("You must type inldescriptionInput.");
-      return;
-    }
-    if (!emailInput || !emailIsValid(emailInput)) {
-
-      alert("You must type in an valid email");
-      return;
-    }
-
-    // console.log("hello, there", jobTitleInput);
-    // console.log("imh is ", img);
     const input = {
       jobTitle: jobTitleInput,
       companyName: companyNameInput,
@@ -62,7 +33,11 @@ export default function Create(props) {
       companyWebsite: companyWebsiteInput,
       companyImage: img,
     };
-
+    const errorMsg = validateForm(input);
+    if (errorMsg) {
+      alert(errorMsg);
+      return errorMsg;
+    }
     axios
       .post("/api/jobs/createNewJob", input)
       .then((res) => {
@@ -80,75 +55,6 @@ export default function Create(props) {
   return (
     <>
       <h1>You are trying to create a new job</h1>
-      {/* 
-      <ImageUpload setImg={setImg} />
- 
-      <form>
-        <div>JobTitle</div>
-        <input
-          type="text"
-          value={jobTitleInput}
-          onChange={(e) => {
-            setError(null);
-            setJobTitleInput(e.target.value);
-          }}
-        />
-        <div>Company Name</div>
-        <input
-          type="text"
-          value={companyNameInput}
-          onChange={(e) => {
-            setError(null);
-            setCompanyNameInput(e.target.value);
-          }}
-        />
-        <div>Company Location</div>
-        <input
-          type="text"
-          value={locationInput}
-          onChange={(e) => {
-            setError(null);
-            setLocationInput(e.target.value);
-          }}
-        />
-        <div>Company Email</div>
-        <input
-          type="email"
-          value={emailInput}
-          onChange={(e) => {
-            setError(null);
-            setEmailInput(e.target.value);
-          }}
-        />
-        <div>Company Website</div>
-        <input
-          type="text"
-          value={companyWebsiteInput}
-          onChange={(e) => {
-            setError(null);
-            setCompanyWebsiteInput(e.target.value);
-          }}
-        />
-
-        <div>Fill in Job description</div>
-        <CKEditor
-          editor={ClassicEditor}
-          data=""
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            console.log("done data", { event, editor, data });
-            setDescriptionInput(data);
-          }}
-        /> 
-
-        <button onClick={onSubmitButtonClick}>Submit</button>
-      </form>
-   */}
-
       <Form>
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label className="reqField">Job Title</Form.Label>
@@ -157,7 +63,6 @@ export default function Create(props) {
             placeholder="Enter the job title you want to create"
             value={jobTitleInput}
             onChange={(e) => {
-              setError(null);
               setJobTitleInput(e.target.value);
             }}
             required
@@ -171,7 +76,6 @@ export default function Create(props) {
             placeholder="Enter the company"
             value={companyNameInput}
             onChange={(e) => {
-              //setError(null);
               setCompanyNameInput(e.target.value);
             }}
             required
@@ -184,7 +88,6 @@ export default function Create(props) {
             placeholder="Enter the location for this job"
             value={locationInput}
             onChange={(e) => {
-             // setError(null);
               setLocationInput(e.target.value);
             }}
             required
@@ -198,7 +101,6 @@ export default function Create(props) {
             placeholder="Enter email for company contacter"
             value={emailInput}
             onChange={(e) => {
-              //setError(null);
               setEmailInput(e.target.value);
             }}
             required
@@ -212,7 +114,6 @@ export default function Create(props) {
             placeholder="Enter the Company website"
             value={companyWebsiteInput}
             onChange={(e) => {
-              //setError(null);
               setCompanyWebsiteInput(e.target.value);
             }}
             required
@@ -247,6 +148,22 @@ export default function Create(props) {
   );
 }
 
-function emailIsValid(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+export function validateForm(form) {
+  if (!form.jobTitle) {
+    return "You must type in a job name.";
+  }
+  if (!form.companyName) {
+    return "You must type in a company name.";
+  }
+  if (!form.location) {
+    return "You must type in location.";
+  }
+  if (!form.description) {
+    return "You must type in description.";
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.employerEmailContact)) {
+    return "You must type in an valid email";
+  }
+  return null;
 }

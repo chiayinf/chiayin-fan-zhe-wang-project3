@@ -12,7 +12,6 @@ export default function (props) {
   const [user, setUser] = useState(undefined);
 
   function whoIsLoggedIn() {
-    console.log("check");
     axios
       .get("/api/users/whoIsLoggedIn")
       .then((response) => {
@@ -21,7 +20,6 @@ export default function (props) {
       .catch((error) => console.error(error));
   }
   useEffect(whoIsLoggedIn, []);
-  console.log("username", user);
 
   let id = useParams().jobId;
   if (id.length > 0 && id[0] === ":") {
@@ -32,7 +30,6 @@ export default function (props) {
   const [jobSt, setJobSt] = useState("Not Started");
   const [curJobSt, setCurJobSt] = useState("");
   findFavStatus(id, setFav, setCurJobSt);
-  // console.log("fav", fav);
   const [job, setAJob] = useState([]);
 
   const navigate = useNavigate();
@@ -51,21 +48,16 @@ export default function (props) {
     axios
       .delete("/api/jobs/" + id)
       .then((response) => {
-        console.log(" delete done");
         alert("delete succeed");
         navigate("/job");
       })
       .catch((error) => {
-        console.log("delete fail", error);
         alert("delete fail");
       });
   }
 
   function favClick() {
-    console.log("sryff", fav);
     if (fav === "unFav") {
-      const api = "/api/favs/" + id;
-      console.log("api is ", api);
       axios
         .post("/api/favs/", {
           //id: favId,
@@ -76,25 +68,21 @@ export default function (props) {
           // location: job.location,
         })
         .then((response) => {
-          console.log(response.data);
-          alert("fav succeed");
+          //alert("favorite succeed");
           setFav("fav");
           setJobSt(response.data["status"]);
         })
         .catch((error) => {
-          console.log("fav ", error);
           alert("fav fail");
         });
     } else {
       axios
         .delete("/api/favs/" + id)
         .then((response) => {
-          console.log("done");
-          alert("fav delete succeed");
+          //alert("unfavorite succeed");
           setFav("unFav");
         })
         .catch((error) => {
-          console.log("fav ", error);
           alert("un fav fail");
         });
     }
@@ -102,21 +90,18 @@ export default function (props) {
 
   function onListen(e) {
     setJobSt(e.target.value);
-    console.log("cgx", e.target.value);
   }
 
   function statusChangeClick(e) {
-    console.log("cs", jobSt);
-    //const favId = userId + "_" + id;
     const api = "/api/favs/" + id;
     axios
       .put(api, { status: jobSt })
       .then((response) => {
-        alert("update st succeed");
+        alert("update status succeed");
         window.location.reload();
       })
       .catch((error) => {
-        alert("st st fail");
+        alert("set status fail");
       });
   }
 
@@ -215,11 +200,9 @@ export default function (props) {
 
 function findFavStatus(jobId, setFav, setSt) {
   const api = "/api/favs/detail/" + jobId;
-  console.log("finding stauts api", api);
   axios
     .get(api)
     .then((response) => {
-      console.log("rs ", response);
       if (response.data) {
         setFav("fav");
         setSt(response.data["status"]);
