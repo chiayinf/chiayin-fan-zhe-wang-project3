@@ -68,9 +68,9 @@ export default function CustNav() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav>
                 <Nav.Link href="/">Home Page</Nav.Link>
-                <Nav.Link href="/login">LogIn</Nav.Link>
-                <Nav.Link href="/register">Sign up</Nav.Link>
                 <Nav.Link href="/job">Check All jobs</Nav.Link>
+                <Nav.Link href="/login">LogIn</Nav.Link>
+                <Nav.Link href="/register">Sign up</Nav.Link>     
               </Nav>
             </Navbar.Collapse>
           </Container>

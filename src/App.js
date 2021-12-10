@@ -28,7 +28,7 @@ function App() {
       <div class = "main">
    
       <h1>
-      Hey! Name the Job you want!
+      Still Jobs!
       </h1>
       {/* <input type='text' placeholder="type keyword in job title" value={formInput}
       onChange={(e) => setFormInput(e.target.value)} /> */}

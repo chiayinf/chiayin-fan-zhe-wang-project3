@@ -71,9 +71,9 @@ export default function (props) {
           //id: favId,
           //userId: userId,
           jobId: id,
-          jobTitle: job.jobTitle,
-          companyName: job.companyName,
-          location: job.location,
+          // jobTitle: job.jobTitle,
+          // companyName: job.companyName,
+          // location: job.location,
         })
         .then((response) => {
           console.log(response.data);
@@ -122,7 +122,7 @@ export default function (props) {
 
   const jobComponent = job ? (
     <>
-      <div>job Name: {job.jobTitle}</div>
+      <div>Job Name: {job.jobTitle}</div>
       <div>Company name: {job.companyName}</div>
       <div>Location: {job.location}</div>
       <div>
@@ -133,7 +133,7 @@ export default function (props) {
       <div>CompanyWebsite: {job.companyWebsite}</div>
       <div>Posting date: {job.postingDate}</div>
       <div>
-        Image:
+        Company Image:
         <img src={job.companyImage}></img>
       </div>
     </>
@@ -144,7 +144,7 @@ export default function (props) {
   const jobStComponent =
     fav === "fav" ? (
       <>
-        <div> currApplyStatus: {curJobSt}</div>
+        <div> Your Current Apply Status: {curJobSt}</div>
         {/* <select val={jobSt} onChange={onListen}>
           <option value="Not Started">Not Started</option>
           <option value="Applied">Applied</option>

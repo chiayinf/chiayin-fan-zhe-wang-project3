@@ -42,7 +42,7 @@ router.get('/detail/:jobId', (request, response) => {
 
   return JobModel.findJobByJobId(jobId)
     .then((jobResponse) => {
-      console.log("res", jobResponse);
+      console.log("res for jbid", jobId, jobResponse);
       // if(!jobResponse) {
       //     response.status(404).send("Job not found");
       // }
