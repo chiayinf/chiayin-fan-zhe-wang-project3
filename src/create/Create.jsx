@@ -12,9 +12,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate } from "react-router-dom";
 import "../style.css";
 
-
 export default function Create(props) {
-
   const [jobTitleInput, setJobTitleInput] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
   const [locationInput, setLocationInput] = useState("");
@@ -28,32 +26,28 @@ export default function Create(props) {
 
   function onSubmitButtonClick() {
     if (!jobTitleInput) {
-      setError("You must type in a job name.");
+      alert("You must type in a job name.");
       return;
     }
     if (!companyNameInput) {
-      setError("You must type in a company name.");
 
       alert("You must type in a company name.");
       return;
     }
 
     if (!locationInput) {
-      setError("You must type in a  locationInput.");
 
       alert("You must type inlocationInput.");
       return;
     }
     if (!descriptionInput) {
-      setError("You must type in a  descriptionInput.");
 
       alert("You must type inldescriptionInput.");
       return;
     }
     if (!emailInput || !emailIsValid(emailInput)) {
-      setError("You must type in an valid email");
 
-      alert("You must type emailInput.");
+      alert("You must type in an valid email");
       return;
     }
 
@@ -78,16 +72,14 @@ export default function Create(props) {
       })
       .catch((error) => {
         console.log("fail", error);
-        setError(error);
+
         alert("create fail");
       });
-    //debugger;
   }
 
   return (
     <>
       <h1>You are trying to create a new job</h1>
-      {errorMsg}
       {/* 
       <ImageUpload setImg={setImg} />
  
@@ -179,7 +171,7 @@ export default function Create(props) {
             placeholder="Enter the company"
             value={companyNameInput}
             onChange={(e) => {
-              setError(null);
+              //setError(null);
               setCompanyNameInput(e.target.value);
             }}
             required
@@ -192,7 +184,7 @@ export default function Create(props) {
             placeholder="Enter the location for this job"
             value={locationInput}
             onChange={(e) => {
-              setError(null);
+             // setError(null);
               setLocationInput(e.target.value);
             }}
             required
@@ -206,7 +198,7 @@ export default function Create(props) {
             placeholder="Enter email for company contacter"
             value={emailInput}
             onChange={(e) => {
-              setError(null);
+              //setError(null);
               setEmailInput(e.target.value);
             }}
             required
@@ -215,7 +207,16 @@ export default function Create(props) {
 
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Company Website</Form.Label>
-          <Form.Control type="text" placeholder="Enter the Company website" />
+          <Form.Control
+            type="text"
+            placeholder="Enter the Company website"
+            value={companyWebsiteInput}
+            onChange={(e) => {
+              //setError(null);
+              setCompanyWebsiteInput(e.target.value);
+            }}
+            required
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicText">
@@ -224,8 +225,7 @@ export default function Create(props) {
           <CKEditor
             editor={ClassicEditor}
             data=""
-            onReady={(editor) => {
-            }}
+            onReady={(editor) => {}}
             onChange={(event, editor) => {
               const data = editor.getData();
               setDescriptionInput(data);
@@ -247,6 +247,6 @@ export default function Create(props) {
   );
 }
 
-function emailIsValid (email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+function emailIsValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }

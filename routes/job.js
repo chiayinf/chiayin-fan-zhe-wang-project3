@@ -55,7 +55,7 @@ router.get('/detail/:jobId', (request, response) => {
     )
 })
 
-router.post('/createNewJob',auth_middleware, function (req, res) {
+router.post('/createNewJob',auth_middleware, async function (req, res) {
   const form = req.body;
 
   //const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
@@ -63,13 +63,13 @@ router.post('/createNewJob',auth_middleware, function (req, res) {
   // if (!jobTitle) {
   //   return res.status(422).send("Missing jobTitle: " + jobTitle)
   // }
-  return JobModel.insertJob(form)
-    .then((jobResponse) => {
-      console.log("res", jobResponse);
-      return res.status(200).send(jobResponse);
-
-    })
-    .catch(error => res.status(400).send(error))
+  try {
+    const jobResponse = await JobModel.insertJob(form);
+    console.log("res", jobResponse);
+    return res.status(200).send(jobResponse);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
 
 });
 
