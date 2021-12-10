@@ -33,7 +33,7 @@ export default function Edit(props) {
   const navigate = useNavigate();
   function findThatJob() {
     axios
-      .get("http://localhost:8000/api/jobs/detail/" + jobId)
+      .get("/api/jobs/detail/" + jobId)
       .then((response) => {
         setAJob(response.data);
         setJobTitleInput(response.data.jobTitle);
@@ -98,11 +98,13 @@ export default function Edit(props) {
       companyImage: img,
     };
 
-     const api = "http://localhost:8000/api/jobs/detail/" + jobId;
+     const api = "/api/jobs/detail/" + jobId;
+     debugger;
     axios
       .put(api, input)
-      .then((response) => {
-        console.log("done");
+      .then((res) => {
+        debugger;
+        console.log("done", res);
         alert("update succeed");
         navigate("/job/detail/:"+jobId);
       })

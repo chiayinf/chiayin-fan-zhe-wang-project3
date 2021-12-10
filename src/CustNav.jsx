@@ -10,7 +10,6 @@ export default function CustNav() {
   });
 
   function whoIsLoggedIn() {
-    console.log("check");
     axios
       .get("/api/users/whoIsLoggedIn")
       .then((response) => {
@@ -18,13 +17,10 @@ export default function CustNav() {
           ...user,
           username: response.data,
         });
-
-        console.log("test2", response.data);
       })
       .catch((error) => console.error(error));
   }
   useEffect(whoIsLoggedIn, []);
-  console.log("username", user.username);
 
   if (user.username) {
     return (

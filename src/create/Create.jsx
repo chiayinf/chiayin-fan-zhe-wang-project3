@@ -32,7 +32,7 @@ export default function Create(props) {
       return;
     }
     if (!companyNameInput) {
-      setError("You must type in a  company name.");
+      setError("You must type in a company name.");
 
       alert("You must type in a company name.");
       return;
@@ -50,8 +50,8 @@ export default function Create(props) {
       alert("You must type inldescriptionInput.");
       return;
     }
-    if (!emailInput) {
-      setError("You must type in a emailInput");
+    if (!emailInput || !emailIsValid(emailInput)) {
+      setError("You must type in an valid email");
 
       alert("You must type emailInput.");
       return;
@@ -71,8 +71,8 @@ export default function Create(props) {
 
     axios
       .post("/api/jobs/createNewJob", input)
-      .then((response) => {
-        console.log("done");
+      .then((res) => {
+        console.log("done", res);
         alert("create succeed");
         navigate("/job");
       })
@@ -225,12 +225,9 @@ export default function Create(props) {
             editor={ClassicEditor}
             data=""
             onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log("Editor is ready to use!", editor);
             }}
             onChange={(event, editor) => {
               const data = editor.getData();
-              console.log("done data", { event, editor, data });
               setDescriptionInput(data);
             }}
           />
@@ -248,4 +245,8 @@ export default function Create(props) {
       </Form>
     </>
   );
+}
+
+function emailIsValid (email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }

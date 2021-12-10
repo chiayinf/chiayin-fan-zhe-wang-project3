@@ -35,14 +35,13 @@ router.get('/:jobTitle', (request, response) => {
 
 router.get('/detail/:jobId', (request, response) => {
   const jobId = request.params.jobId;
-  console.log("job is ", jobId);
   if (!jobId) {
     return response.status(422).send("Missing Id");
   }
 
   return JobModel.findJobByJobId(jobId)
     .then((jobResponse) => {
-      console.log("res for jbid", jobId, jobResponse);
+      //console.log("res for jbid", jobId, jobResponse);
       // if(!jobResponse) {
       //     response.status(404).send("Job not found");
       // }
@@ -57,7 +56,6 @@ router.get('/detail/:jobId', (request, response) => {
 })
 
 router.post('/createNewJob',auth_middleware, function (req, res) {
-  console.log("passed", req.body);
   const form = req.body;
 
   //const { jobTitle, companyName, location, description, employerEmailContact, createBy, companyWebsite, companyImage } = req.body;
@@ -65,9 +63,9 @@ router.post('/createNewJob',auth_middleware, function (req, res) {
   // if (!jobTitle) {
   //   return res.status(422).send("Missing jobTitle: " + jobTitle)
   // }
-  console.log("inser", form);
   return JobModel.insertJob(form)
     .then((jobResponse) => {
+      console.log("res", jobResponse);
       return res.status(200).send(jobResponse);
 
     })
@@ -77,7 +75,6 @@ router.post('/createNewJob',auth_middleware, function (req, res) {
 
 
 router.put('/detail/:jobId', function (req, res) {
-  console.log("passed", req.body);
   const jobId = req.params.jobId;
   const { _id,jobTitle, companyName, location, description, employerEmailContact, companyWebsite, companyImage } = req.body;
   if (!jobId) {
@@ -86,6 +83,8 @@ router.put('/detail/:jobId', function (req, res) {
 
   return JobModel.updateJobByJobId(jobId, req.body)
     .then((jobResponse) => {
+      console.log("res", jobResponse);
+      debugger;
       return res.status(200).send(jobResponse);
 
     })
