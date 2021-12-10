@@ -95,7 +95,7 @@ router.post('/authenticate', function(request, response) {
             if (!userResponse) {
                 return response.status(404).send("No user found with that username");
             }
-            if (userResponse.password === password) {
+            if (bcrypt.compareSync(password, userResponse.password)) {
                 request.session.username = username;
                 return response.status(200).send({username});
             } else {
@@ -115,8 +115,6 @@ router.post('/authenticate', function(request, response) {
 router.post('/insertUser', function(req, res) {
     console.log("req", req.body);
     let { username, password } = req.body;
-    // const username = req.body.username
-    // const password = req.body.password
     if (!username || !password) {
         return res.status(422).send("Missing username: " + username + "or password:" + password)
     }
