@@ -10,6 +10,8 @@ export default (props) =>{
         username: '',
     })
 
+    
+    console.log(window.location.href); 
     return (
         <div>
             <h3>Login or Sign up a new account</h3>
@@ -35,8 +37,11 @@ export default (props) =>{
                     axios.post('/api/users/authenticate', userData)
                         
                         .then(response => {
-                            console.log(response);
-                            window.location.replace("/");
+                             
+                            //console.log(response);
+                            console.log(userData.username, 'curUrl')
+                            //window.location.replace("/");
+                            window.history.back()
                         })
                         .catch(error => {
                             console.log(error);

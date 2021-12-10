@@ -35,17 +35,19 @@ export default (props) =>{
                 onClick={() => {
                     axios.post('/api/users/insertUser', userData)
                         .then(response => {
-                            console.log(response);
+                            console.log('not in');
+                            //console.log(response);
                             axios.post('/api/users/authenticate', userData)
                                 .then(authResponse => {
                                     console.log(authResponse);
+                                    console.log('getin');
                                     window.location.replace("/");
                                 })
                                 .catch(authError => console.log(authError));
                         })
                         .catch(error => {
                             console.log(error);
-                            alert("Username already exists!");
+                            alert("Username already exists!!");
                         });
                 }}
             >Register New User</button>
