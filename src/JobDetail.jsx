@@ -165,7 +165,10 @@ export default function (props) {
       <Button onClick={onDeleteClick}>Delete</Button>{" "}
     </>
   ) : (
-    <div> Create more jobs! </div>
+    <>
+    <br/>
+    <h4> Login to Create/favorite jobs! </h4>
+    </>
   );
 
   const favComponent = user ? (
