@@ -116,7 +116,6 @@ export default function Create(props) {
             onChange={(e) => {
               setCompanyWebsiteInput(e.target.value);
             }}
-            required
           />
         </Form.Group>
 

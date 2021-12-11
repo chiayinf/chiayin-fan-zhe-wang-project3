@@ -18,20 +18,19 @@ export default function ImageUpload(props) {
 
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
-    console.log("f", e.target.files);
     console.log("ff", file);
-
+    if(file.size >50 *1024) {
+      alert("please choose a picture size less than 50KB.");
+      return;
+    }
     if (file) {
       const reader = new FileReader();
       const { current } = uploadedImage;
-
-      console.log("cuyr", current);
       current.file = file;
       reader.onload = (e) => {
         current.src = e.target.result;
         props.setImg(current.src);
       };
-      console.log("cuee", current);
       reader.readAsDataURL(file);
     }
   };

@@ -141,7 +141,6 @@ export default function Edit(props) {
             onChange={(e) => {
               setCompanyWebsiteInput(e.target.value);
             }}
-            required
           />
         </Form.Group>
 
@@ -150,7 +149,7 @@ export default function Edit(props) {
 
           <CKEditor
             editor={ClassicEditor}
-            data=""
+            data={descriptionInput}
             onReady={(editor) => {}}
             onChange={(event, editor) => {
               const data = editor.getData();
