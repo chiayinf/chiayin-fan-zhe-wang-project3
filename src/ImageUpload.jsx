@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
+import "./style.css";
 
 //https://medium.com/@ibamibrhm/custom-upload-button-image-preview-and-image-upload-with-react-hooks-a7977618ee8c
 
@@ -19,7 +19,7 @@ export default function ImageUpload(props) {
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
     console.log("ff", file);
-    if(file.size >50 *1024) {
+    if (file.size > 50 * 1024) {
       alert("please choose a picture size less than 50KB.");
       return;
     }
@@ -35,29 +35,8 @@ export default function ImageUpload(props) {
     }
   };
 
-  // function submitImage() {
-  //   const api = "http://localhost:8000/api/jobs/detail/" +jobId;
-  //   axios
-  //     .put(api, {companyImage:img})
-  //     .then((response) => {
-  //       console.log("done", response);
-  //       alert("submitDIelet ");
-  //     })
-  //     .catch((error) => {
-  //       console.log("fav ", error);
-  //       alert("fav fail");
-  //     });
-  // }
-
   return (
-    <div
-      style={{
-        // display: "flex",
-        // flexDirection: "column",
-        //alignItems: "center",
-        // justifyContent: "center",
-      }}
-    >
+    <div>
       <input
         type="file"
         accept="image/*"
@@ -67,27 +46,12 @@ export default function ImageUpload(props) {
           display: "none",
         }}
       />
-      <div
-        style={{
-          height: "130px",
-          width: "130px",
-          border: "1px dashed black",
-        }}
-      >
-        <img
-          ref={uploadedImage}
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "acsolute",
-          }}
-        />
+      <div class="companyImage">
+        <img ref={uploadedImage} class="imageDisplay" />
       </div>
       <Button onClick={() => imageUploader.current.click()}>
-        {" "}
         Click to upload Image
       </Button>
-      {/* <button  onClick={submitImage}>Submit Image</button> */}
     </div>
   );
 }

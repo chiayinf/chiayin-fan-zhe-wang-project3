@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import "./style.css";
 
 export default function (props) {
   const [user, setUser] = useState(undefined);
@@ -107,24 +108,31 @@ export default function (props) {
 
   const jobComponent = job ? (
     <>
+    <div class ="jobD">
       <div>Job Name: {job.jobTitle}</div>
       <div>Company name: {job.companyName}</div>
       <div>Location: {job.location}</div>
+      <br/>
       <div>
         Description:
         <div>{ReactHtmlParser(job.description)}</div>
       </div>
+      <br/>
       <div>Employer email contact: {job.employerEmailContact}</div>
       <div>CompanyWebsite: {job.companyWebsite}</div>
       <div>Posting date: {job.postingDate}</div>
+      <br/>
       <div>
-        Company Image:
-        <img src={job.companyImage}></img>
+      Company Image:
+        <div class="companyImage">
+          <img class="imageDisplay" src={job.companyImage}></img>
+        </div>
       </div>
+  </div>
     </>
   ) : (
-    <div> No job found </div>
-  ); //shouldn't see this
+    <div> Job is unavailable right now </div> 
+  ); 
 
   const jobStComponent =
     fav === "fav" ? (
@@ -153,23 +161,24 @@ export default function (props) {
       <div> make it Fav to change job Status </div>
     ); //shouldn't see this
 
-  const editComponent = user===job.createBy ? (
-    <>
-      <Button
-        onClick={(onEdit) => {
-          navigate("/edit/:" + id);
-        }}
-      >
-        Edit
-      </Button>
-      <Button onClick={onDeleteClick}>Delete</Button>{" "}
-    </>
-  ) : (
-    <>
-    <br/>
-    <h4> Login to Create/favorite jobs! </h4>
-    </>
-  );
+  const editComponent =
+    user === job.createBy ? (
+      <>
+        <Button
+          onClick={(onEdit) => {
+            navigate("/edit/:" + id);
+          }}
+        >
+          Edit
+        </Button>
+        <Button onClick={onDeleteClick}>Delete</Button>{" "}
+      </>
+    ) : (
+      <>
+        <br />
+        <h4> Login to Create/favorite jobs! </h4>
+      </>
+    );
 
   const favComponent = user ? (
     <>
@@ -195,7 +204,7 @@ export default function (props) {
       {favComponent}
       {jobComponent}
       {editComponent}
-     
+
       {/* <Button onClick={favClick}>Favorite {getHeart(fav)}</Button> */}
     </>
   );

@@ -4,9 +4,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 export default function ListJobDisplay(props) {
-  const  allJobs = props.jobs;
+  const allJobs = props.jobs;
   const jobListComponent = allJobs.map((job) => {
     return (
       <>
@@ -16,7 +17,11 @@ export default function ListJobDisplay(props) {
             </Link> */}
         <p></p>
         <ListGroup.Item as="li">
-          Title: {job.jobTitle}, Location: {job.location}, Company:{job.companyName}
+          <div class="companyIconImage">
+            <img class="imageDisplay" src={getImage(job.companyImage)}></img>
+          </div>
+          Title: {job.jobTitle}, Location: {job.location}, Company:
+          {job.companyName}
           <br />
           <Link to={"detail/:" + job._id}>check detail...</Link>
         </ListGroup.Item>
@@ -25,9 +30,18 @@ export default function ListJobDisplay(props) {
   });
   return (
     <>
-      <ListGroup as="ol" numbered>
-        {jobListComponent}
-      </ListGroup>
+      <div class="jobListDisplay">
+        <ListGroup as="ol" numbered>
+          {jobListComponent}
+        </ListGroup>
+      </div>
     </>
   );
+}
+
+function getImage(companyImage) {
+  if (!companyImage) {
+    return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU";
+  }
+  return companyImage;
 }
