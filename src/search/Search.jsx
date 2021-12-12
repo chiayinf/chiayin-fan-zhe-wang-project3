@@ -10,6 +10,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import "../style.css"
 
 export default function Search() {
   const queryString = window.location.search;

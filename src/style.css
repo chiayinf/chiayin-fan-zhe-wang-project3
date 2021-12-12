@@ -26,7 +26,13 @@
 }
 
 .jobD{
-  margin: 20px 20px;
+  margin: 20px 5px;
+}
+.jobDetail{
+  margin: 0px 10px;
+}
+.jobContent{
+  font-weight: bold;
 }
 
 Button{

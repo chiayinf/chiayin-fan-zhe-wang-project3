@@ -106,25 +106,24 @@ export default function (props) {
   const jobComponent = job ? (
     <>
       <div class="jobD">
-        <div>Job Name: {job.jobTitle}</div>
-        <div>Company name: {job.companyName}</div>
-        <div>Location: {job.location}</div>
-        <br />
-        <div>
-          Description:
-          <div>{ReactHtmlParser(job.description)}</div>
-        </div>
-        <br />
-        <div>Employer email contact: {job.employerEmailContact}</div>
-        <div>CompanyWebsite: {job.companyWebsite}</div>
-        <div>Posting date: {job.postingDate}</div>
-        <br />
-        <div>
-          Company Image:
-          <div class="companyImage">
+        <div class ="jobContent">Job Name: </div>
+         <div class ="jobDetail">{job.jobTitle}</div>
+         <div class ="jobContent">Company name: </div>
+         <div class ="jobDetail">{job.companyName}</div>
+         <div class ="jobContent">Location: </div>
+         <div class ="jobDetail">{job.location}</div>
+         <div class ="jobContent">Job Description: </div>
+         <div class ="jobDetail">{ReactHtmlParser(job.description)}</div>
+         <div class ="jobContent">Email contact: </div>
+         <div class ="jobDetail">{job.employerEmailContact}</div>
+         <div class ="jobContent">Company Website:</div>
+         <div class ="jobDetail">{job.companyWebsite}</div>
+         <div class ="jobContent">Posting date: </div>
+         <div class ="jobDetail">{job.postingDate}</div>
+         <div class ="jobContent"> Company Image:</div>
+          <div class="companyImage jobDetail">
             <img class="imageDisplay" src= {getImage(job.companyImage)}></img>
           </div>
-        </div>
       </div>
     </>
   ) : (
