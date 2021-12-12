@@ -35,8 +35,11 @@ export default function CustNav() {
                 <Nav.Link href="/job">Check All jobs</Nav.Link>
               </Nav>
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>Hi {user.username}</Navbar.Text>
-                <Button
+                
+                
+                <Nav>
+                  <Nav.Link>Hi {user.username}</Nav.Link>
+                  <Button
                   variant="secondary"
                   onClick={() => {
                     axios
@@ -53,8 +56,9 @@ export default function CustNav() {
                 >
                   Logout
                 </Button>
+                </Nav>
               </Navbar.Collapse>
-              </Navbar.Collapse>
+            </Navbar.Collapse>
           </Container>
         </Navbar>
       </>
@@ -69,8 +73,8 @@ export default function CustNav() {
               <Nav>
                 <Navbar.Brand href="/">Home</Navbar.Brand>
                 <Nav.Link href="/job">Check All jobs</Nav.Link>
-                  <Nav.Link href="/login">LogIn</Nav.Link>
-                  <Nav.Link href="/register">Sign up</Nav.Link>
+                <Nav.Link href="/login">LogIn</Nav.Link>
+                <Nav.Link href="/register">Sign up</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
