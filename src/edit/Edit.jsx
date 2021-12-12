@@ -136,6 +136,7 @@ export default function Edit(props) {
 
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Company Website</Form.Label>
+            <Form.Text className="text-muted">(optional)</Form.Text>
             <Form.Control
               type="text"
               placeholder="Enter the Company website"
@@ -170,7 +171,7 @@ export default function Edit(props) {
             Submit
           </Button>
           <Button
-           variant="success"
+            variant="success"
             type="submit"
             onClick={() => navigate("/job/detail/" + jobId)}
           >

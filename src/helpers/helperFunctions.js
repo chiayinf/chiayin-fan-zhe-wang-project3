@@ -20,6 +20,7 @@ export function validDateForm(form) {
 
 export default function getImage(companyImage) {
   if (!companyImage) {
+    return "https://brandyourself.com/blog/wp-content/uploads/linkedin-profile-picture-too-close.png";
     return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU";
   }
   return companyImage;
