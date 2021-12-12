@@ -1,20 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./style.css";
+import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import "./style.css";
+import getImage from "./helpers/helperFunctions";
 
 export default function ListJobDisplay(props) {
   const allJobs = props.jobs;
+
   const jobListComponent = allJobs.map((job) => {
     return (
       <>
-        {/* <p></p>
-            <Link to={"detail/:" + job._id}>
-              {job.jobTitle}, {job.location}, {job.companyName}
-            </Link> */}
         <p></p>
         <ListGroup.Item as="li">
           <div class="companyIconImage">
@@ -37,11 +36,4 @@ export default function ListJobDisplay(props) {
       </div>
     </>
   );
-}
-
-function getImage(companyImage) {
-  if (!companyImage) {
-    return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU";
-  }
-  return companyImage;
 }

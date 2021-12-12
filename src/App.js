@@ -8,66 +8,38 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
 function App() {
   const [formInput, setFormInput] = useState('');
-  const [pokemon, setPokemon] = useState({
-    name: 'No pokemon selected', health: -1,
-  })
   const navigate = useNavigate();
-  function onSearchButtonClick() {
-
-    axios.get('http://localhost:8000/api/pokemon/find/pikachu')
-      .then(response => setPokemon(response.data))
-      .catch(error => console.warn("error"));
-    console.log("hello, there");
-  }
 
   return (
-    <div>
-      <div class = "main">
-   
-      <h1>
-      Still Jobs!
-      </h1>
-      {/* <input type='text' placeholder="type keyword in job title" value={formInput}
-      onChange={(e) => setFormInput(e.target.value)} /> */}
+    <Container>
+        <div class="main">
+          <h1>
+            Still Jobs!
+          </h1>
+          <img src="https://redlakejobs.ca/wp-content/uploads/2020/10/employment-300x136.jpg" />
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label ></Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="type keyword in job title for search"
+                value={formInput}
+                onChange={(e) => setFormInput(e.target.value)}
 
-<Form>
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label ></Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="type keyword in job title for search"
-            value={formInput}
-            onChange={(e) => setFormInput(e.target.value)}
-       
-          />
-        </Form.Group>
-        </Form>
-      <Button
-                    variant="primary" onClick={onSearchButtonClick=> navigate('/search/?term='+formInput)}>
-        Search for Jobs
-      </Button>
+              />
+            </Form.Group>
+          </Form>
+          <Button
+            variant="primary" onClick={() => navigate('/search/?term=' + formInput)}>
+            Search for Jobs
+          </Button>
 
- </div>
-{/* 
-      <br/>
-      <button onClick={onSearchButtonClick=> navigate('/create')}>
-        Create Jobs
-      </button>
-      <button onClick={onSearchButtonClick=> navigate('/favorite')}>
-        my favorites
-      </button>
-      <button onClick={onSearchButtonClick=> navigate('/job')}>
-        job
-      </button>
-      <button onClick={onSearchButtonClick=> navigate('/login')}>
-        LogIn
-      </button> */}
-
-    </div>
- 
+        </div>
+    </Container>
   );
 }
 

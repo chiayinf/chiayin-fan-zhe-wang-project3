@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate } from "react-router-dom";
+import Container from "react-bootstrap/Container";
 import "../style.css";
 
 export default function Create(props) {
@@ -54,6 +55,7 @@ export default function Create(props) {
 
   return (
     <>
+    <Container>
       <h1>You are trying to create a new job</h1>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicText">
@@ -143,6 +145,7 @@ export default function Create(props) {
           Submit
         </Button>
       </Form>
+      </Container>
     </>
   );
 }

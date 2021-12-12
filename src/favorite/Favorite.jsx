@@ -1,16 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import JobDetail from "../JobDetail";
 import ListJobDisplay from "../ListJobDisplay";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import getImage from "../helpers/helperFunctions";
+
 //temp for listing all jobs
 export default function Job() {
   const [allJobs, setAllJobs] = useState([]);
-  const [t, setT] = useState([]);
-  //const userId = "pc";
-
   function cmp(a, b) {
     const mp = {
       "Not Started": 1,
@@ -55,29 +57,40 @@ export default function Job() {
   useEffect(findAllJobs, []);
 
   const jobListComponent = allJobs.map((job) => {
-    return job.notValid ? (
-      <>
-        <p></p>
-        <div>Job Status: {job.status}</div>
-        <Link to={"detail/:" + job.jobId}><div>Sorry this job is not valid anymore, unfavorite to remove it</div></Link>
-      </>
+    let cur = job.notValid ? (
+      <div>Sorry this job is not valid anymore, unfavorite to remove it</div>
     ) : (
+      <div>
+        {" "}
+        Title: {job.jobTitle}, Location: {job.location}, Company:
+        {job.companyName}
+      </div>
+    );
+    return (
       <>
-        <p></p>
-        <div>Job Status: {job.status}</div>
-        <Link to={"detail/:" + job.jobId}>
-        Title: {job.jobTitle}, Location: {job.location}, Company:{job.companyName}
-        </Link>
+        <ListGroup.Item as="li">
+          <div class="companyIconImage">
+            <img class="imageDisplay" src={getImage(job.companyImage)}></img>
+          </div>
+          <div>Job Status: {job.status}</div>
+          {cur}
+          <br />
+          <Link to={"detail/:" + job.jobId}>check detail...</Link>
+        </ListGroup.Item>
       </>
     );
   });
 
   return (
     <>
-      <h1> These are your Favorite jobs</h1>
-      {jobListComponent}
-      {/* {res} */}
-      {/* <ListJobDisplay jobs = {allJobs}/> */}
+      <Container>
+        <h1> These are your Favorite jobs</h1>
+        <div class="jobListDisplay">
+          <ListGroup as="ol" numbered>
+            {jobListComponent}
+          </ListGroup>
+        </div>
+      </Container>
     </>
   );
 }
