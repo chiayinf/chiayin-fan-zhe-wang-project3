@@ -14,7 +14,7 @@ export default (props) =>{
     console.log(window.location.href); 
     return (
         <div>
-            <h3>Login or Sign up a new account</h3>
+            <h3>Login</h3>
             <h5>Username:</h5>
             <input value={userData.username} onChange={(e) => {
                 const username = e.target.value;
@@ -37,14 +37,10 @@ export default (props) =>{
                     axios.post('/api/users/authenticate', userData)
                         
                         .then(response => {
-                             
-                            //console.log(response);
-                            console.log(userData.username, 'curUrl')
-                            //window.location.replace("/");
+                            alert("login succeed");
                             window.history.back()
                         })
                         .catch(error => {
-                            console.log(error);
                             alert("Please enter the correct username or password!")
                         }); 
                 }}
