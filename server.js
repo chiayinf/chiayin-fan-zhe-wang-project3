@@ -12,8 +12,9 @@ const MongoStore = require('connect-mongo');
 
 
 //Setup MongoDB Connection
+const mongoDBEndpoint = "mongodb+srv://webdeva3:z876pxp6prGCS9E@webdeva3.ykuzi.mongodb.net/WebDevA3?retryWrites=true&w=majority"
 const mongoString = process.env.MONGODB_URI || 'mongodb://localhost/';
-mongoose.connect( mongoString, { useNewUrlParser: true })
+mongoose.connect( mongoDBEndpoint, { useNewUrlParser: true })
 
 const mongoDB = mongoose.connection;
 
