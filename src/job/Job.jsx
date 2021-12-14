@@ -18,7 +18,7 @@ export default function Job() {
 
   function findAllJobs() {
     axios
-      .get("http://localhost:8000/api/jobs/findAllJob")
+      .get("/api/jobs/findAllJob")
       .then((response) => {
         setAllJobs(response.data);
       })

@@ -20,7 +20,7 @@ export default function Search() {
   const [allJobs, setAllJobs] = useState([]);
   function findAllJobs() {
     axios
-      .get("http://localhost:8000/api/jobs/" + term)
+      .get("/api/jobs/" + term)
       .then((response) => {
         setAllJobs(response.data);
       })
