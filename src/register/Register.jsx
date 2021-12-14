@@ -40,7 +40,7 @@ export default (props) =>{
                             axios.post('/api/users/authenticate', userData)
                                 .then(authResponse => {
                                     console.log(authResponse);
-                                    alert("login succeed");
+                                    alert("register succeed");
                                     window.location.replace("/");
                                 })
                                 .catch(authError => console.log(authError));
