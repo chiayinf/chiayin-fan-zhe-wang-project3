@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
 export default function Edit(props) {
   let jobId = useParams().jobId;
@@ -78,97 +79,106 @@ export default function Edit(props) {
 
   return (
     <>
-      <h1>Your are in the Editing mode for job {jobTitleInput}</h1>
+      <Container>
+        <h1>Your are in the Editing mode for job {jobTitleInput}</h1>
 
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label className="reqField">Job Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter the job title you want to create"
-            value={jobTitleInput}
-            onChange={(e) => {
-              setJobTitleInput(e.target.value);
-            }}
-            required
-          />
-        </Form.Group>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label className="reqField">Job Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter the job title you want to create"
+              value={jobTitleInput}
+              onChange={(e) => {
+                setJobTitleInput(e.target.value);
+              }}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label className="reqField">Company Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter the company"
-            value={companyNameInput}
-            onChange={(e) => {
-              setCompanyNameInput(e.target.value);
-            }}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label className="reqField">Company Location</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter the location for this job"
-            value={locationInput}
-            onChange={(e) => {
-              setLocationInput(e.target.value);
-            }}
-            required
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label className="reqField">Company Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter the company"
+              value={companyNameInput}
+              onChange={(e) => {
+                setCompanyNameInput(e.target.value);
+              }}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label className="reqField">Company Location</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter the location for this job"
+              value={locationInput}
+              onChange={(e) => {
+                setLocationInput(e.target.value);
+              }}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label className="reqField">Company Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email for company contacter"
-            value={emailInput}
-            onChange={(e) => {
-              setEmailInput(e.target.value);
-            }}
-            required
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label className="reqField">Company Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email for company contacter"
+              value={emailInput}
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+              }}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label>Company Website</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter the Company website"
-            value={companyWebsiteInput}
-            onChange={(e) => {
-              setCompanyWebsiteInput(e.target.value);
-            }}
-            required
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Company Website</Form.Label>
+            <Form.Text className="text-muted">(optional)</Form.Text>
+            <Form.Control
+              type="text"
+              placeholder="Enter the Company website"
+              value={companyWebsiteInput}
+              onChange={(e) => {
+                setCompanyWebsiteInput(e.target.value);
+              }}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label className="reqField">Job Description</Form.Label>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label className="reqField">Job Description</Form.Label>
 
-          <CKEditor
-            editor={ClassicEditor}
-            data=""
-            onReady={(editor) => {}}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setDescriptionInput(data);
-            }}
-          />
-        </Form.Group>
+            <CKEditor
+              editor={ClassicEditor}
+              data={descriptionInput}
+              onReady={(editor) => {}}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setDescriptionInput(data);
+              }}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label>Upload image for company</Form.Label>
-          <Form.Text className="text-muted">(optional)</Form.Text>
-          <ImageUpload setImg={setImg} />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Upload new image for company</Form.Label>
+            <Form.Text className="text-muted">(optional)</Form.Text>
+            <ImageUpload setImg={setImg} />
+          </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={onSubmitButtonClick}>
-          Submit
-        </Button>
-      </Form>
+          <Button variant="primary" type="submit" onClick={onSubmitButtonClick}>
+            Submit
+          </Button>
+          <Button
+            variant="success"
+            type="submit"
+            onClick={() => navigate("/job/detail/" + jobId)}
+          >
+            No, I don't want to change
+          </Button>
+        </Form>
+      </Container>
     </>
   );
 }

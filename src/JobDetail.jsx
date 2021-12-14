@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ReactHtmlParser from "react-html-parser";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
+import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import getImage from "./helpers/helperFunctions";
 
 export default function (props) {
   const [user, setUser] = useState(undefined);
@@ -60,12 +63,7 @@ export default function (props) {
     if (fav === "unFav") {
       axios
         .post("/api/favs/", {
-          //id: favId,
-          //userId: userId,
           jobId: id,
-          // jobTitle: job.jobTitle,
-          // companyName: job.companyName,
-          // location: job.location,
         })
         .then((response) => {
           //alert("favorite succeed");
@@ -107,38 +105,37 @@ export default function (props) {
 
   const jobComponent = job ? (
     <>
-      <div>Job Name: {job.jobTitle}</div>
-      <div>Company name: {job.companyName}</div>
-      <div>Location: {job.location}</div>
-      <div>
-        Description:
-        <div>{ReactHtmlParser(job.description)}</div>
-      </div>
-      <div>Employer email contact: {job.employerEmailContact}</div>
-      <div>CompanyWebsite: {job.companyWebsite}</div>
-      <div>Posting date: {job.postingDate}</div>
-      <div>
-        Company Image:
-        <img src={job.companyImage}></img>
+      <div class="jobD">
+        <div class ="jobContent">Job Name: </div>
+         <div class ="jobDetail">{job.jobTitle}</div>
+         <div class ="jobContent">Company name: </div>
+         <div class ="jobDetail">{job.companyName}</div>
+         <div class ="jobContent">Location: </div>
+         <div class ="jobDetail">{job.location}</div>
+         <div class ="jobContent">Job Description: </div>
+         <div class ="jobDetail">{ReactHtmlParser(job.description)}</div>
+         <div class ="jobContent">Email contact: </div>
+         <div class ="jobDetail">{job.employerEmailContact}</div>
+         <div class ="jobContent">Company Website:</div>
+         <div class ="jobDetail">{job.companyWebsite}</div>
+         <div class ="jobContent">Posting date: </div>
+         <div class ="jobDetail">{job.postingDate}</div>
+         <div class ="jobContent"> Company Image:</div>
+          <div class="companyImage jobDetail">
+            <img class="imageDisplay" src= {getImage(job.companyImage)}></img>
+          </div>
       </div>
     </>
   ) : (
-    <div> No job found </div>
-  ); //shouldn't see this
+    <div> Job is unavailable right now </div>
+  );
 
   const jobStComponent =
     fav === "fav" ? (
       <>
         <div> Your Current Apply Status: {curJobSt}</div>
-        {/* <select val={jobSt} onChange={onListen}>
-          <option value="Not Started">Not Started</option>
-          <option value="Applied">Applied</option>
-          <option value="Interview Scheduled">Interview Scheduled</option>
-          <option value="Accepted">Accepted</option>
-          <option value="Rejected">Rejected</option>
-        </select> */}
         <br />
-        <div> change your job application status:</div>
+        <div> Change your job application status:</div>
         <Form.Select val={jobSt} onChange={onListen}>
           <option value="Not Started">Not Started</option>
           <option value="Applied">Applied</option>
@@ -147,30 +144,31 @@ export default function (props) {
           <option value="Rejected">Rejected</option>
         </Form.Select>
 
-        <Button onClick={statusChangeClick}>Submit Status Change</Button>
+        <Button variant="success" onClick={statusChangeClick}>Submit Status Change</Button>
       </>
     ) : (
-      <div> make it Fav to change job Status </div>
+      <div> Favoriate to track application Status! </div>
     ); //shouldn't see this
 
-  const editComponent = user===job.createBy ? (
-    <>
-      <Button
-        onClick={(onEdit) => {
-          navigate("/edit/:" + id);
-        }}
-      >
-        Edit
-      </Button>
-      <Button onClick={onDeleteClick}>Delete</Button>{" "}
-    </>
-  ) : (
-    <div> Create more jobs! </div>
-  );
+  const editComponent =
+    user === job.createBy ? (
+      <>
+        <Button variant="warning"
+          onClick={(onEdit) => {
+            navigate("/edit/:" + id);
+          }}
+        >
+          Edit
+        </Button>
+        <Button  variant="danger" onClick={onDeleteClick}>Delete</Button>{" "}
+      </>
+    ) : (
+      <></>
+    );
 
   const favComponent = user ? (
     <>
-      <Button onClick={favClick}>Favorite {getHeart(fav)}</Button>
+      <Button variant="success" onClick={favClick}>Favorite {getHeart(fav)}</Button>
       {/* <div> fav St: {fav}</div> */}
       {jobStComponent}
     </>
@@ -179,21 +177,12 @@ export default function (props) {
   );
   return (
     <>
+    <Container>
       <h1>Here is the detail page for job {job.jobTitle}</h1>
-
-      {/* <Button
-        onClick={(onEdit) => {
-          navigate("/edit/:" + id);
-        }}
-      >
-        Edit
-      </Button>
-      <Button onClick={onDeleteClick}>Delete</Button> */}
       {favComponent}
       {jobComponent}
       {editComponent}
-     
-      {/* <Button onClick={favClick}>Favorite {getHeart(fav)}</Button> */}
+      </Container>
     </>
   );
 }
