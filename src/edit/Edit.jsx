@@ -70,7 +70,8 @@ export default function Edit(props) {
       .put(api, input)
       .then((res) => {
         alert("update succeed");
-        navigate("/job/detail/:" + jobId);
+        // navigate("/job/detail/:" + jobId);
+        navigate("/job/detail/" + jobId)
       })
       .catch((error) => {
         alert("update fail");

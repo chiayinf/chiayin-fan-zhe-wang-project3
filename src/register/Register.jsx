@@ -41,7 +41,7 @@ export default (props) =>{
                                 .then(authResponse => {
                                     console.log(authResponse);
                                     alert("login succeed");
-                                    window.location.replace("/");
+                                    window.history.back()
                                 })
                                 .catch(authError => console.log(authError));
                         })

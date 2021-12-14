@@ -47,7 +47,7 @@ export default function CustNav() {
                       .then((response) => {
                         console.log(response, "x");
                         alert("logout succeed");
-                        window.history.back()
+                        
                       })
                       .catch((error) => console.log(error));
                     setUser({
